@@ -96,7 +96,7 @@ implements TweenListener
         final float r = getRotation();
         final float w2 = s * w / 2;
         final float h2 = s * h / 2;
-        final float hp = UI.halfpixel;        
+        final float hp = UI.halfpixel;
 
         sb.draw(tr,
                 x + addx * w * 1 + hp,
@@ -115,7 +115,7 @@ implements TweenListener
         final float w2 = w / 2;
         final float h2 = h / 2;
         final float hp = UI.halfpixel;
-        
+
         sb.draw(texture,
                 x + hp, y + hp,
                 w2, h2,

@@ -25,10 +25,10 @@ public class World
           STATE_END = 5
           ;
     public static int state = STATE_SEL1;
-    
+
     // Items
     public static TopBar top;
-    
+
     // sprites etc
     public static TileSprite [] tiles;
 
