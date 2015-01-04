@@ -6,7 +6,6 @@ import se.tube42.lib.util.*;
 
 public class UI extends UIC
 {
-
     // game
     public static int size, gap;
     public static int board_x0, board_y0;

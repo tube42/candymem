@@ -60,8 +60,8 @@ implements TweenListener
             first = false;
             anim_menus_off();
 
-            if(Items.top != null) {
-                Items.top.show(1.5f, 1.5f);
+            if(World.top != null) {
+                World.top.show(1.5f, 1.5f);
             }
 
             anim_screen_on();
@@ -105,8 +105,8 @@ implements TweenListener
         buttons[1].setPosition( UI.button_small_x2, UI.button_small_y);
 
         // top:
-        if(Items.top != null) {
-            Items.top.resize(true);
+        if(World.top != null) {
+            World.top.resize(true);
         }
     }
 
@@ -238,7 +238,7 @@ implements TweenListener
         for(int i = 0; i < buttons.length; i++)
             buttons[i].hide(0.3f + i * 0.1f, 0.7f);
 
-        Items.top.resize(false)
+        World.top.resize(false)
               .pause(0.8f).finish(this, MSG_SHOW_GAME);
     }
 

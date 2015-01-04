@@ -8,6 +8,7 @@ import se.tube42.lib.tweeny.*;
 import se.tube42.lib.scene.*;
 import se.tube42.lib.item.*;
 
+import se.tube42.kidsmem.data.*;
 import se.tube42.kidsmem.service.*;
 
 public class TileSprite
@@ -79,14 +80,8 @@ implements TweenListener
 
             sb.setColor( 1, 1, 1, a);
             draw_texture(sb, candy[id], 0.4f, -0.07f, 0.35f);
-            // draw_texture(sb, candy[id]);
             break;
         }
-        /*
-           // DEBUG
-           sb.setColor(1, 0, 0, 1);
-           Assets.font1.draw(sb, "" + getState(), getX(), getY());
-         */
     }
 
 
@@ -99,13 +94,13 @@ implements TweenListener
         final float x = getX();
         final float y = getY();
         final float r = getRotation();
-
         final float w2 = s * w / 2;
         final float h2 = s * h / 2;
+        final float hp = UI.halfpixel;        
 
         sb.draw(tr,
-                x + addx * w * 1 + 0.5f,
-                y + addy * h * 1 + 0.5f,
+                x + addx * w * 1 + hp,
+                y + addy * h * 1 + hp,
                 w2, h2,
                 w, h,
                 s, s, r);
@@ -119,9 +114,10 @@ implements TweenListener
         final float r = getRotation();
         final float w2 = w / 2;
         final float h2 = h / 2;
-
+        final float hp = UI.halfpixel;
+        
         sb.draw(texture,
-                x + 0.5f, y + 0.5f,
+                x + hp, y + hp,
                 w2, h2,
                 w, h,
                 s, s, r);

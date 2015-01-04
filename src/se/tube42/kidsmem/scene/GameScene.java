@@ -104,8 +104,8 @@ implements MessageListener, TweenListener
         GameHelper.positionBoard();
 
         // top:
-        if(Items.top != null) {
-            Items.top.resize(false);
+        if(World.top != null) {
+            World.top.resize(false);
         }
 
         text0.setPosition(16, UI.stats_yc);

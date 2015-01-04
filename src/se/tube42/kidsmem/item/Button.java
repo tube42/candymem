@@ -112,10 +112,11 @@ public class Button extends BaseItem
 
     public void draw(SpriteBatch sb)
     {
+        final float hp = UI.halfpixel;        
         final float s = getScale();
         final float s2 = s * 1.33f;
-        final float x = (int)(0.5f + getX());
-        final float y = (int)(0.5f + getY());
+        final float x = getX() + hp;
+        final float y = getY() + hp;
         final float r = getRotation();
         final float w2 = w / 2;
         final float h2 = h / 2;

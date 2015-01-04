@@ -51,16 +51,9 @@ public class ParticleItem extends BaseItem
         }
     }
 
-    /*
-    public void release()
-    {
-        stop();
-        super.release();
-    }
-       */
     public void stop()
     {
-        if(effect != null) {
+        if(effect != null) {            
             effect.free();
             effect = null;
             flags |= FLAG_DEAD;

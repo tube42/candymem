@@ -14,7 +14,6 @@ import se.tube42.kidsmem.item.*;
 
 
 public class World
-implements StateHolder
 {
     // game state
     public static final int
@@ -26,7 +25,10 @@ implements StateHolder
           STATE_END = 5
           ;
     public static int state = STATE_SEL1;
-
+    
+    // Items
+    public static TopBar top;
+    
     // sprites etc
     public static TileSprite [] tiles;
 
@@ -46,9 +48,4 @@ implements StateHolder
 
     // counters
     public static int cnt_total, cnt_match;
-
-    // ----------------------------
-    // StateHolder
-    public void setState(int state) { this.state = state; }
-    public int getState() { return state; }
 }
