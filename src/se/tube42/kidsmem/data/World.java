@@ -39,7 +39,6 @@ public class World
     public static int board_w, board_h;
     public static TileSprite sel1, sel2;
     public static TileSprite [] board;
-    public static ParticleItem [] particles;
     public static FireworkItem [] fireworks;
 
     // misc:

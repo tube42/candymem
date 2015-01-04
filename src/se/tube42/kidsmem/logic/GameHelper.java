@@ -9,6 +9,12 @@ import se.tube42.kidsmem.data.*;
 import se.tube42.kidsmem.service.*;
 import se.tube42.kidsmem.item.*;
 
+/*
+ * game logic.
+ *
+ * since animation code in GameScene was getting too
+ * complicated we also moved most of that to this class
+ */
 
 public class GameHelper
 {
@@ -217,7 +223,7 @@ public class GameHelper
             final TileSprite si = World.board[i];
             final float t = ServiceProvider.getRandom(0.2f, 0.32f);
 
-            si.set(BaseSprite.ITEM_S, 1.2f).configure(t, null)
+            si.set(BaseItem.ITEM_S, 1.2f).configure(t, null)
                   .tail(0.8f).configure(t, null)
                   .tail(1.0f).configure(t, null);
         }
@@ -229,13 +235,13 @@ public class GameHelper
     {
         item.setState(TileSprite.STATE_ANIM_SHOW);
 
-        item.pause(BaseSprite.ITEM_A, 1f, 0.3f)
+        item.pause(BaseItem.ITEM_A, 1f, 0.3f)
               .tail(0.4f).configure(0.06f, null)
               .pause(0.2f)
               .tail(1.0f).configure(0.1f, null)
               ;
 
-        return item.set(BaseSprite.ITEM_S, 1.0f, 1.1f).configure(0.3f, null)
+        return item.set(BaseItem.ITEM_S, 1.0f, 1.1f).configure(0.3f, null)
               .tail(0.2f).configure(0.1f, null)
               .finish(item, TileSprite.STATE_SHOWN)
               .tail(1.2f).configure(0.20f, null)
@@ -251,7 +257,7 @@ public class GameHelper
 
         item.setState(TileSprite.STATE_ANIM_HIDE);
 
-        item.pause(BaseSprite.ITEM_S, 1f, r)
+        item.pause(BaseItem.ITEM_S, 1f, r)
               .tail(1.1f).configure(0.14f, null)
               .tail(0.3f).configure(0.3f, null)
               .finish(item, state)
@@ -259,7 +265,7 @@ public class GameHelper
               .tail(1f).configure(0.1f, null);
 
 
-        return item.pause(BaseSprite.ITEM_A, 1f, r + 0.4f)
+        return item.pause(BaseItem.ITEM_A, 1f, r + 0.4f)
               .tail(0.5f).configure(0.04f, null)
               .tail(1.0f).configure(0.05f, null)
               ;
@@ -273,8 +279,8 @@ public class GameHelper
             if(ts.getState() == TileSprite.STATE_HIDDEN) {
                 final float t = ServiceProvider.getRandom(0.4f, 0.6f);
                 final float p = (dim ? 0 : 0.5f) + ServiceProvider.getRandom(0.15f, 0.25f);
-                final float a = ts.get(BaseSprite.ITEM_A);
-                ts.pause(BaseSprite.ITEM_A, a, p)
+                final float a = ts.get(BaseItem.ITEM_A);
+                ts.pause(BaseItem.ITEM_A, a, p)
                       .tail(dim ? 0.5f : 1).configure(t, null);
             }
         }
@@ -282,25 +288,6 @@ public class GameHelper
 
     public static void animWhenCorrect(TileSprite sel1, TileSprite sel2)
     {
-
-        animShowParticleOn(sel1);
-        animShowParticleOn(sel2);
-    }
-
-    private static int pcnt = 0;
-    private static void animShowParticleOn(TileSprite s)
-    {
-        pcnt = (pcnt + 1) % World.particles.length;
-
-        ParticleItem pi = World.particles[pcnt];
-
-
-        pi.setPosition(
-                  s.getX() + s.getW() / 2,
-                  s.getY() + s.getH() / 2
-                  );
-
-        pi.emit(Assets.pep_match);
     }
 
     public static void animWhenIncorrect(TileSprite sel1, TileSprite sel2)
@@ -311,7 +298,7 @@ public class GameHelper
                 final float r = ServiceProvider.getRandom(0.6f, 0.8f);
                 final float p = ServiceProvider.getRandom(0.05f, 0.12f);
 
-                t.pause(BaseSprite.ITEM_R, 0, p)
+                t.pause(BaseItem.ITEM_R, 0, p)
                       .tail(+25).configure(r * .2f, null)
                       .tail(-25).configure(r * .4f, null)
                       .tail(+15).configure(r * .3f, null)
@@ -327,15 +314,15 @@ public class GameHelper
     public static void animAlreadyUsed(TileSprite item)
     {
         // end old tween
-        item.removeTween(BaseSprite.ITEM_X, true);
+        item.removeTween(BaseItem.ITEM_X, true);
 
         //
-        final float x = item.get(BaseSprite.ITEM_X);
+        final float x = item.get(BaseItem.ITEM_X);
         float s = Math.max(12, UI.size / 6);
         float t = 0.1f;
 
 
-        TweenNode tmp = item.set(BaseSprite.ITEM_X, x + s)
+        TweenNode tmp = item.set(BaseItem.ITEM_X, x + s)
               .configure(t / 2, null);
 
         for(int i = 0; i < 8 && s > 2; i++) {

@@ -166,7 +166,7 @@ aligned: false
 additive: true
 behind: false
 - Image Path -
-C:\Users\user\Documents\repos\local\android\KidsMemory\assets\fx\particle.png
+particle.png
 
 
 Untitled
@@ -300,4 +300,4 @@ aligned: false
 additive: true
 behind: false
 - Image Path -
-C:\Users\user\Documents\repos\local\android\KidsMemory\assets\fx\particle.png
+particle.png

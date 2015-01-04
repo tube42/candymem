@@ -17,6 +17,10 @@ import static se.tube42.kidsmem.data.Constants.*;
 
 public class Button extends BaseItem
 {
+    public static final int
+          ITEM_S2 = 5
+          ;
+
     private TextureRegion [] icons, shadows;
     private int shadow1, shadow2;
     private int index1, index2;
@@ -40,6 +44,7 @@ public class Button extends BaseItem
 
         tweener.set(0, 0);
         tweener.set(1, 0);
+        setImmediate(ITEM_S2, 1); // initial value for S2
     }
 
     public void press()
@@ -86,10 +91,10 @@ public class Button extends BaseItem
         final float p = pause + ServiceProvider.getRandom(0, 0.2f);
         final float t = duration + ServiceProvider.getRandom(0f, 0.1f);
 
-        pause(BaseSprite.ITEM_S, 0.5f, p)
+        pause(BaseItem.ITEM_S, 0.5f, p)
               .tail(1f).configure(t, TweenEquation.QUAD_OUT);
 
-        pause(BaseSprite.ITEM_A, 0, p)
+        pause(BaseItem.ITEM_A, 0, p)
               .tail(1f).configure(t * 0.8f, null);
     }
 
@@ -97,9 +102,9 @@ public class Button extends BaseItem
     {
         final float p = pause + ServiceProvider.getRandom(0f, 0.2f);
         final float t = duration + ServiceProvider.getRandom(0f, 0.1f);
-        final float c = Math.max(p, get(BaseSprite.ITEM_A));
+        final float c = Math.max(p, get(BaseItem.ITEM_A));
 
-        pause(BaseSprite.ITEM_A, c, p)
+        pause(BaseItem.ITEM_A, c, p)
               .tail(0).configure(t, null);
     }
 
@@ -114,7 +119,8 @@ public class Button extends BaseItem
     {
         final float hp = UI.halfpixel;
         final float s = getScale();
-        final float s2 = s * 1.33f;
+//        final float s2 = s * 1.33f;
+        final float s2 = get(ITEM_S2) * s * 1.33f;
         final float x = getX() + hp;
         final float y = getY() + hp;
         final float r = getRotation();

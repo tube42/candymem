@@ -19,4 +19,11 @@ public class Constants
     public final static int
           TOP_DELTA_Y = -5 // the offset where rect starts, after shadow
           ;
+
+    public final static int
+          MENU_SOUND = 0,
+          MENU_FULLSCREEN = 1,
+          MENU_HARDNESS = 2,
+          MENU_PLAY = 3
+          ;
 }

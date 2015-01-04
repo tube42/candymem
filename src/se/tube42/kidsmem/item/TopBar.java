@@ -38,7 +38,7 @@ public class TopBar extends PatchItem
     {
         int pos = TOP_DELTA_Y + (big ? UI.top_y0 : UI.top_y1);
 
-        return set(ITEM_Y, pos).configure(0.45f, TweenEquation.BACK_IN);
+        return set(ITEM_Y, pos).configure(0.5f, TweenEquation.BACK_IN);
     }
 
 

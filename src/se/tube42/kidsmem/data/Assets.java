@@ -22,7 +22,7 @@ public final class Assets
 
     // -------------------------------------------------
     // particles
-    public static ParticleEffectPool pep_match, pep_explode;
+    public static ParticleEffectPool pep_explode;
     public static ParticleEffectPool pep_firework, pep_trail;
 
     // -------------------------------------------------

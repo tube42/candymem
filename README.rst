@@ -11,7 +11,9 @@ To download, go to https://play.google.com/store/apps/details?id=se.tube42.kidsm
 
 Acknowledgements
 ----------------
+
 The candy graphics was extracted from public domain images created by the talented Luisa Midori ( @lumimae on twitter).
+
 
 
 Building
@@ -49,3 +51,9 @@ To build the assets, you should do
 * make
 
 Note that "ant setup" will overwrite your generated assets.
+
+
+Notes
+-----
+
+This projects follows the standard Java coding style with one exception: private stuff is snake_case ;)

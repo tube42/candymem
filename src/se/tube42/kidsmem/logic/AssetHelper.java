@@ -53,7 +53,6 @@ public class AssetHelper
         reg_rect = ServiceProvider.divideTexture( tmp, 8, 8);
 
         // particles
-        pep_match = ServiceProvider.loadParticle(base, "match");
         pep_explode = ServiceProvider.loadParticle(base, "explode");
         pep_firework = ServiceProvider.loadParticle(base, "firework");
         pep_trail = ServiceProvider.loadParticle(base, "trail");

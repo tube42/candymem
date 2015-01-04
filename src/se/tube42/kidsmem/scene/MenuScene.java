@@ -52,9 +52,8 @@ implements TweenListener
 
     public void onShow()
     {
+        timer_reset();
         enabled = true;
-        time = -3; // force first
-
 
         if(first) {
             first = false;
@@ -67,7 +66,7 @@ implements TweenListener
             anim_screen_on();
         }
 
-        anim_menus_in();
+        anim_menus_on();
     }
 
     public void onHide()
@@ -78,10 +77,10 @@ implements TweenListener
 
     private void update()
     {
-        buttons[0].animateIndex(Settings.sound ? 2 : 3);
-        buttons[1].animateIndex(4 + Settings.size);
-        buttons[2].setIndex(7);
-        buttons[3].animateIndex(Settings.fullscreen ? 0 : 1);
+        buttons[MENU_SOUND].animateIndex(Settings.sound ? 2 : 3);
+        buttons[MENU_HARDNESS].animateIndex(4 + Settings.size);
+        buttons[MENU_PLAY].setIndex(7);
+        buttons[MENU_FULLSCREEN].animateIndex(Settings.fullscreen ? 0 : 1);
 
         if(World.sys != null)
             World.sys.setFullscreen(Settings.fullscreen);
@@ -92,17 +91,17 @@ implements TweenListener
     	super.resize(sw, sh);
 
         // play button:
-        buttons[2].setSize(UI.button_big_size, UI.button_big_size);
-        buttons[2].setPosition(UI.button_big_x, UI.button_big_y);
+        buttons[MENU_PLAY].setSize(UI.button_big_size, UI.button_big_size);
+        buttons[MENU_PLAY].setPosition(UI.button_big_x, UI.button_big_y);
 
         // the small ones:
-        buttons[0].setSize(UI.button_small_size, UI.button_small_size);
-        buttons[1].setSize(UI.button_small_size, UI.button_small_size);
-        buttons[3].setSize(UI.button_small_size, UI.button_small_size);
+        buttons[MENU_SOUND].setSize(UI.button_small_size, UI.button_small_size);
+        buttons[MENU_HARDNESS].setSize(UI.button_small_size, UI.button_small_size);
+        buttons[MENU_FULLSCREEN].setSize(UI.button_small_size, UI.button_small_size);
 
-        buttons[0].setPosition( UI.button_small_x0, UI.button_small_y);
-        buttons[3].setPosition( UI.button_small_x1, UI.button_small_y);
-        buttons[1].setPosition( UI.button_small_x2, UI.button_small_y);
+        buttons[MENU_SOUND].setPosition( UI.button_small_x0, UI.button_small_y);
+        buttons[MENU_HARDNESS].setPosition( UI.button_small_x2, UI.button_small_y);
+        buttons[MENU_FULLSCREEN].setPosition( UI.button_small_x1, UI.button_small_y);
 
         // top:
         if(World.top != null) {
@@ -110,20 +109,31 @@ implements TweenListener
         }
     }
 
-    public void onUpdate(float dt)
-    {
-        super.onUpdate(dt);
+    // --------------------------------------------------
 
+    private void timer_reset()
+    {
+        time = -10;
+    }
+
+    private void timer_update(float dt)
+    {
         time += dt;
         if(time > 0) {
-            time = -ServiceProvider.getRandom(5, 10);
-            buttons[2].set(BaseSprite.ITEM_S2, 1, 1.1f).configure(0.2f, null)
+            timer_reset();
+            buttons[MENU_PLAY].set(Button.ITEM_S2, 1, 1.1f).configure(0.2f, null)
                   .tail(1.0f).configure(0.2f, null)
                   .pause(0.4f)
                   .tail(1.1f).configure(0.2f, null)
                   .tail(1.0f).configure(0.2f, null)
                   ;
         }
+    }
+
+    public void onUpdate(float dt)
+    {
+        super.onUpdate(dt);
+        timer_update(dt);
     }
 
 
@@ -152,13 +162,14 @@ implements TweenListener
             return false;
 
         if(down && !drag) {
-
             int n = get_tile_at(x, y);
             if(n != -1) {
-                anim_menu_push(n);
+
+                timer_reset();
+                buttons[n].press();
 
                 switch(n) {
-                    case 0: // SOUND
+                    case MENU_SOUND: // SOUND
                     // enable sound. double ifs() to sound even when off
                     if(Settings.sound)
                         ServiceProvider.play(Assets.talk_off);
@@ -169,16 +180,16 @@ implements TweenListener
                         ServiceProvider.play(Assets.talk_on);
                     break;
 
-                    case 1: // hardness
+                    case MENU_HARDNESS: // hardness
                     Settings.size = (Settings.size + 1) % 3;
                     ServiceProvider.play(Assets.talk_hardness[Settings.size]);
                     break;
 
-                    case 3: // fullscreen
+                    case MENU_FULLSCREEN: // fullscreen
                     Settings.fullscreen = !Settings.fullscreen;
                     break;
 
-                    case 2: // PLAY
+                    case MENU_PLAY: // PLAY
                     enabled = false;
                     ServiceProvider.play(Assets.talk_play);
 
@@ -188,8 +199,9 @@ implements TweenListener
                     World.board_h = Settings.size == 0 ? 3 : 2 + Settings.size * 2;
                     SizeHelper.resizeBoard(UI.sw, UI.sh); // must resize since board_w/h may have changed
 
-                    // anim out
+                    // anim buttons out (and move to game scene)
                     anim_menus_out();
+                    break;
                 }
                 update();
                 return true;
@@ -223,28 +235,23 @@ implements TweenListener
         }
     }
 
-    private void anim_menus_in()
+    private void anim_menus_on()
     {
         for(int i = 0; i < buttons.length; i++)
-            buttons[i].show(0 + i * 0.1f, 0.4f);
+            buttons[i].show(0.3f + i * 0.15f, 0.4f);
 
         update(); // set correct alphas!
     }
 
     private void anim_menus_out()
     {
-        buttons[2].removeTween(BaseSprite.ITEM_S2, true);
-
-        for(int i = 0; i < buttons.length; i++)
-            buttons[i].hide(0.3f + i * 0.1f, 0.7f);
+        for(int i = 0; i < buttons.length; i++) {
+            buttons[i].setImmediate(Button.ITEM_S2, 1f);
+            buttons[i].hide(0.3f + i * 0.15f, 0.5f);
+        }
 
         World.top.resize(false)
-              .pause(0.8f).finish(this, MSG_SHOW_GAME);
-    }
-
-    private void anim_menu_push(int index)
-    {
-        buttons[index].press();
+              .pause(1.0f).finish(this, MSG_SHOW_GAME);
     }
 
     private void anim_menu_release_all()

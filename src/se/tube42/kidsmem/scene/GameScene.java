@@ -37,7 +37,6 @@ implements MessageListener, TweenListener
           ;
 
     public static final int
-          COUNT_PARTICLES = 4,
           COUNT_FIREWORKS = 6
           ;
 
@@ -61,11 +60,7 @@ implements MessageListener, TweenListener
 
         World.tiles = new TileSprite[COUNT_W * COUNT_H];
         World.board = new TileSprite[World.board_w * World.board_h];
-        World.particles = new ParticleItem[COUNT_PARTICLES];
         World.fireworks = new FireworkItem[COUNT_FIREWORKS];
-
-        for(int i = 0; i < World.particles.length; i++)
-            World.particles[i] = new ParticleItem();
 
         for(int i = 0; i < World.tiles.length; i++)
             World.tiles[i] = new TileSprite(Assets.reg_tiles, Assets.reg_candy1);
@@ -75,14 +70,13 @@ implements MessageListener, TweenListener
 
         // add some of the visible stuff to layers
         getLayer(0).add(World.fireworks);
-        getLayer(1).add(World.particles);
-        tile_layer = getLayer(2);
+        tile_layer = getLayer(1);
 
         // text stuff
         text0 = new GameStat();
         text1 = new GameStat();
-        getLayer(3).add(text0);
-        getLayer(3).add(text1);
+        getLayer(2).add(text0);
+        getLayer(2).add(text1);
     }
 
     public void onShow()
@@ -173,6 +167,7 @@ implements MessageListener, TweenListener
     {
         onMessage(data, index, item, item);
     }
+
     public void onMessage(int msg, int data0, Object data1, Object sender)
     {
         // System.out.println("MSG = " + msg + " data0=" + data0 + " data1=" + data1);
