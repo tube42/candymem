@@ -1,7 +1,7 @@
-<project name="kidsmem" default="help">
-  <property name="proj" value="kidsmem" />
-  <property name="apkplz" value="kidsmem-release.apk" />
-  <property name="site" location="../tube42.github.io/kidsmem" />
+<project name="candymem" default="help">
+  <property name="proj" value="candymem" />
+  <property name="apkplz" value="candymem-release.apk" />
+  <property name="site" location="../tube42.github.io/candymem" />
 
   <target name="setup">
     <mkdir dir="libs" />
@@ -9,11 +9,9 @@
     <mkdir dir="libs/pc" />
     <mkdir dir="libs/bin" />
     
-    <!-- unpack assets right into the project -->
-    <!-- 
-    <get skipexisting="false" src="http://tube42.github.io/kidsmem/assets/assets.zip" dest="libs/dl/assets.zip" />        
+    <!-- unpack assets right into the project -->    
+    <get skipexisting="false" src="http://tube42.github.io/${proj}/assets/assets.zip" dest="libs/dl/assets.zip" />        
     <unzip src="libs/dl/assets.zip" dest="./"/>
-    -->
     
     <!-- download needed files -->    
     <get skipexisting="false" src="http://tube42.github.io/marm/bin/marm_app.jar" dest="libs/bin/marm_app.jar" />    
@@ -101,7 +99,7 @@
   </target>
 
   <target name="run" depends="compile_local" >
-    <java dir="assets" classname="se.tube42.${proj}.desktop.DesktopMain" fork="yes">
+    <java dir="assets" classname="se.tube42.kidsmem.desktop.DesktopMain" fork="yes">
       <classpath refid="cp" />
     </java>
   </target>
@@ -110,7 +108,7 @@
   <target name="publish" depends="release" >
     <!-- the comiled assets -->
     <zip destfile="${site}/assets/assets.zip" >
-      <zipfileset dir="assets" prefix="assets"/>  
+      <zipfileset dir="assets/1" prefix="assets/1"/>  
       <zipfileset dir="res" prefix="res" />
     </zip>    
     
