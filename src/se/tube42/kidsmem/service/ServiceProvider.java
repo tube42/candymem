@@ -141,7 +141,7 @@ public class ServiceProvider
     }
     public static void play(Sound s, float amp)
     {
-        if(s == null )
+        if(s == null || !Settings.sound)
             return;
 
         final float a = Math.max(0.9f, amp * 0.8f);
