@@ -15,6 +15,8 @@ public class AssetHelper
 
     public static void load()
     {
+        long t0 = System.currentTimeMillis();
+
         String base = "1/";
 
         // fonts
@@ -24,6 +26,9 @@ public class AssetHelper
         } else {
             font1 = ServiceProvider.loadFont(base + "font1");
         }
+
+        long t1 = System.currentTimeMillis();
+
 
         // patches
         np_shadow = ServiceProvider.loadPatch(base + "shadow.9.png", 6, 5, 6, 5);
@@ -57,6 +62,8 @@ public class AssetHelper
         pep_firework = ServiceProvider.loadParticle(base, "firework");
         pep_trail = ServiceProvider.loadParticle(base, "trail");
 
+        long t2 = System.currentTimeMillis();
+
         // audio
         sound_yes = ServiceProvider.loadSoundArray("yes");
         sound_no  = ServiceProvider.loadSoundArray("no");
@@ -67,5 +74,11 @@ public class AssetHelper
         talk_off = ServiceProvider.loadSound("talk_off");
         talk_play = ServiceProvider.loadSound("talk_play");
         talk_hardness = ServiceProvider.loadSoundArray("talk_hardness");
+
+
+        long t3 = System.currentTimeMillis();
+
+        System.out.println("LOADED: fonts: "  + (t1 - t0) + " textures: " + (t2 - t1) + " sounds: " + (t3 - t2));
+
     }
 }

@@ -3,3 +3,5 @@ build
 gen
 libs/*
 local.*
+.dl
+*~
