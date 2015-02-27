@@ -5,25 +5,29 @@
   <property name="site" location="../tube42.github.io/candymem" />
 
   <target name="setup">
-    <delete dir="libs" />
-    <mkdir dir=".dl" />
+    <mkdir dir="${user.home}/.android" />    
+    <mkdir dir="${user.home}/.android/.dl" />
+    
+    <delete dir="libs" />        
+    <mkdir dir=".dl" />    
     <mkdir dir="libs" />
     <mkdir dir="libs/pc" />
     <mkdir dir="libs/bin" />
     
     <!-- unpack assets right into the project -->    
-    <get skipexisting="false" src="http://tube42.github.io/${proj}/assets/assets.zip" dest=".dl/assets.zip" />        
+    <get skipexisting="false" src="http://tube42.github.io/${proj}/assets/assets.zip" dest=".dl/assets.zip" />
     <unzip src=".dl/assets.zip" dest="./"/>
     
     <!-- download needed files -->    
     <get skipexisting="false" src="http://tube42.github.io/marm/bin/marm_app.jar" dest="libs/bin/marm_app.jar" />    
     <get skipexisting="false" src="http://tube42.github.io/ks/bin/Kickstarter_lib.jar" dest="libs/Kickstarter_lib.jar" />
     <get skipexisting="false" src="http://tube42.github.io/tweeny/bin/Tweeny_lib.jar" dest="libs/Tweeny_lib.jar" />
-    <get skipexisting="true" src="http://libgdx.badlogicgames.com/releases/libgdx-${gdx_version}.zip" dest=".dl/gdx-${gdx_version}.zip" />
+    <get skipexisting="true" src="http://libgdx.badlogicgames.com/releases/libgdx-${gdx_version}.zip" 
+      dest="${user.home}/.android/.dl/gdx-${gdx_version}.zip" />
     
 	
     <!-- unpack gdx -->
-    <unzip src=".dl/gdx-${gdx_version}.zip" dest="libs/tmp"/>
+    <unzip src="${user.home}/.android/.dl/gdx-${gdx_version}.zip" dest="libs/tmp"/>
 
     <unjar src="libs/tmp/gdx.jar" dest="libs/common" />
     <unjar src="libs/tmp/extensions/gdx-freetype/gdx-freetype.jar" dest="libs/common" />

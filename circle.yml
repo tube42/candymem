@@ -1,0 +1,18 @@
+machine:
+  environment:
+    ANDROID_HOME: /home/ubuntu/android
+dependencies:
+  pre:
+    - ./extra/scripts/circle.sh
+    - ant setup
+  post:
+    - ant debug
+  cache_directories:
+    - ~/.android
+    - ~/android
+
+general:
+  artifacts:
+    - bin/*-debug.apk
+    - bin/*-release.apk
+    - ./*.jar

@@ -57,3 +57,12 @@ Notes
 -----
 
 This projects follows the standard Java coding style with one exception: private stuff is snake_case ;)
+
+
+Continuous Whatever...
+----------------------
+
+Automatic build, may not use correct assets - you have been warned!
+
+.. image:: https://circleci.com/gh/tube42/candymem/tree/master.svg?style=svg
+    :target: https://circleci.com/gh/tube42/candymem/tree/master
