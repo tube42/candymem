@@ -11,6 +11,7 @@
     <delete dir="libs" />        
     <mkdir dir=".dl" />    
     <mkdir dir="libs" />
+    <mkdir dir="libs/dl" />
     <mkdir dir="libs/pc" />
     <mkdir dir="libs/bin" />
     
@@ -111,14 +112,45 @@
   </target>
   
   
-  <target name="publish" depends="release" >
+  <!-- create jar for the desktop -->
+  <target name="dist" depends="compile_local" >    
+    <jar jarfile="libs/bin/app.jar">
+      <fileset dir="assets"/>      
+      <fileset dir="build"/>
+      <manifest>
+        <attribute name="Main-Class" value="se.tube42.kidsmem.desktop.DesktopMain"/>
+      </manifest>       
+    </jar>
+    
+    <zip destfile="${proj}_app.jar">
+      <zipgroupfileset dir="libs" includes="*.jar"/>
+      <zipgroupfileset dir="libs/pc" includes="*.jar"/>
+      <zipgroupfileset dir="libs/bin" includes="app.jar"/>
+    </zip>        
+  </target>
+  
+  <!-- check if this is the master branch -->  
+  <target name="check_master" >
+    <exec executable="git" outputproperty="git.branch" failifexecutionfails="true">
+      <arg line="rev-parse --abbrev-ref HEAD"/>
+    </exec>
+    <condition property="is.master">
+      <equals arg1="${git.branch}" arg2="master" />
+    </condition>
+    <echo>Current git branch is ${git.branch}</echo>
+  </target>
+  
+  
+  <target name="publish" depends="check_master" if="is.master" >
     <!-- the comiled assets -->
+    <exec executable="make" failifexecutionfails="true" />    
     <zip destfile="${site}/assets/assets.zip" >
       <zipfileset dir="assets/1" prefix="assets/1"/>  
       <zipfileset dir="res" prefix="res" />
     </zip>    
     
-    <!-- the APK -->
+    <!-- build release and save APK-->
+    <antcall target="release" />
     <copy file="bin/${apkplz}" todir="${site}/bin"/>
     
     <!-- add them to git, commit them and finally push the repo-->
@@ -133,10 +165,11 @@
     </exec>
   </target>
 
-  <target name="clean2"  depends="clean" description="clean up" >
+  <target name="clean2" depends="clean" description="clean up" >
     <delete dir="build"/>
     <delete dir="libs"/>
     <delete dir="bin"/>
     <delete dir=".dl"/>
+    <delete file="${proj}_app.jar" />
   </target>
 </project>
