@@ -1,13 +1,13 @@
-package se.tube42.kidsmem.logic;
+package se.tube42.kidsmem.control;
 
 import se.tube42.lib.tweeny.*;
 import se.tube42.lib.ks.*;
 import se.tube42.lib.scene.*;
 import se.tube42.lib.item.*;
+import se.tube42.lib.service.*;
 
 import se.tube42.kidsmem.data.*;
-import se.tube42.kidsmem.service.*;
-import se.tube42.kidsmem.item.*;
+import se.tube42.kidsmem.view.*;
 
 /*
  * game logic.
@@ -35,7 +35,7 @@ public class GameHelper
         if(tmp1 == null) tmp1 = new int[cnt1];
         for(int i = 0; i < cnt1; i++) tmp1[i] = i;
         for(int i = 0; i < cnt1; i++) {
-            int j = ServiceProvider.getRandomInt(cnt1);
+            int j = RandomService.getInt(cnt1);
             int tmp = tmp1[j];
             tmp1[j] = tmp1[i];
             tmp1[i] = tmp;
@@ -46,7 +46,7 @@ public class GameHelper
         if(tmp2 == null) tmp2 = new int[cnt1];  // note: dont use cnt2 here!
         for(int i = 0; i < cnt2; i++) tmp2[i] = i / 2;
         for(int i = 0; i < cnt2; i++) {
-            int j = ServiceProvider.getRandomInt(cnt2);
+            int j = RandomService.getInt(cnt2);
             int tmp = tmp2[j];
             tmp2[j] = tmp2[i];
             tmp2[i] = tmp;
@@ -168,8 +168,8 @@ public class GameHelper
                   ));
 
         for(int i = 0; i < World.fireworks.length; i++) {
-            ServiceProvider.addMessage( ml, 20 + i * 300,
-                      msg_firework, repeats, null);
+            JobService.add( ml, 20 + i * 300,
+                      msg_firework, repeats, null, null);
         }
 
     }
@@ -221,7 +221,7 @@ public class GameHelper
     {
         for(int i = 0; i < World.board.length; i++) {
             final TileSprite si = World.board[i];
-            final float t = ServiceProvider.getRandom(0.2f, 0.32f);
+            final float t = RandomService.get(0.2f, 0.32f);
 
             si.set(BaseItem.ITEM_S, 1.2f).configure(t, null)
                   .tail(0.8f).configure(t, null)
@@ -253,7 +253,7 @@ public class GameHelper
     {
         final int state = matched ? TileSprite.STATE_MATCHED
                     : TileSprite.STATE_HIDDEN;
-        final float r = ServiceProvider.getRandom(0.0f, 0.2f);
+        final float r = RandomService.get(0.0f, 0.2f);
 
         item.setState(TileSprite.STATE_ANIM_HIDE);
 
@@ -277,8 +277,8 @@ public class GameHelper
         for(int i = 0; i < World.board.length; i++) {
             final TileSprite ts = World.board[i];
             if(ts.getState() == TileSprite.STATE_HIDDEN) {
-                final float t = ServiceProvider.getRandom(0.4f, 0.6f);
-                final float p = (dim ? 0 : 0.5f) + ServiceProvider.getRandom(0.15f, 0.25f);
+                final float t = RandomService.get(0.4f, 0.6f);
+                final float p = (dim ? 0 : 0.5f) + RandomService.get(0.15f, 0.25f);
                 final float a = ts.get(BaseItem.ITEM_A);
                 ts.pause(BaseItem.ITEM_A, a, p)
                       .tail(dim ? 0.5f : 1).configure(t, null);
@@ -295,8 +295,8 @@ public class GameHelper
         for(int i = 0; i < World.board.length; i++) {
             final TileSprite t = World.board[i];
             if(t.getState() == TileSprite.STATE_HIDDEN) {
-                final float r = ServiceProvider.getRandom(0.6f, 0.8f);
-                final float p = ServiceProvider.getRandom(0.05f, 0.12f);
+                final float r = RandomService.get(0.6f, 0.8f);
+                final float p = RandomService.get(0.05f, 0.12f);
 
                 t.pause(BaseItem.ITEM_R, 0, p)
                       .tail(+25).configure(r * .2f, null)

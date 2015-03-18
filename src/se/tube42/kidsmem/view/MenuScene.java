@@ -1,4 +1,4 @@
-package se.tube42.kidsmem.scene;
+package se.tube42.kidsmem.view;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.math.*;
@@ -7,15 +7,14 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.audio.*;
 import com.badlogic.gdx.Input.*;
 
-import se.tube42.kidsmem.data.*;
-import se.tube42.kidsmem.service.*;
-import se.tube42.kidsmem.logic.*;
-import se.tube42.kidsmem.item.*;
-
 import se.tube42.lib.tweeny.*;
 import se.tube42.lib.ks.*;
 import se.tube42.lib.scene.*;
 import se.tube42.lib.item.*;
+import se.tube42.lib.service.*;
+
+import se.tube42.kidsmem.data.*;
+import se.tube42.kidsmem.control.*;
 
 import static se.tube42.kidsmem.data.Constants.*;
 
@@ -215,15 +214,18 @@ implements TweenListener
 
     private void anim_screen_off()
     {
-        for(int i = 0; i < 3; i++)
-            World.color_bg.setImmediate(i, 0);
+        for(int e = 0; e < 4; e++) {
+            World.bg.setEdgeColor(e, 0, 0, 0);
+        }
     }
 
     private void anim_screen_on()
     {
-        for(int i = 0; i < 3; i++) {
-            float c = ((COLOR_BG >>> ((2-i) * 8)) & 0xFF) / 255f;
-            World.color_bg.set(i, 0, c).configure(1.2f, null);
+        for(int e = 0; e < 4; e++) { 
+            final float r = ((COLOR_BG[e] >> 16) & 0xFF) / 255f;
+            final float g = ((COLOR_BG[e] >>  8) & 0xFF) / 255f;
+            final float b = ((COLOR_BG[e] >>  0) & 0xFF) / 255f;            
+            World.bg.setEdgeColor(e, 0.8f, r, g, b);
         }
     }
 

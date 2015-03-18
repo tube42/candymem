@@ -8,7 +8,6 @@ import java.util.*;
 public final class StorageService
 {
 
-
     private static Preferences prefs;
 
     public static void init(String name)

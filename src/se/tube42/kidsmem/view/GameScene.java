@@ -1,4 +1,4 @@
-package se.tube42.kidsmem.scene;
+package se.tube42.kidsmem.view;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.math.*;
@@ -12,11 +12,10 @@ import se.tube42.lib.ks.*;
 import se.tube42.lib.scene.*;
 import se.tube42.lib.util.*;
 import se.tube42.lib.item.*;
+import se.tube42.lib.service.*;
 
 import se.tube42.kidsmem.data.*;
-import se.tube42.kidsmem.service.*;
-import se.tube42.kidsmem.logic.*;
-import se.tube42.kidsmem.item.*;
+import se.tube42.kidsmem.control.*;
 
 import static se.tube42.kidsmem.data.Constants.*;
 
@@ -83,7 +82,7 @@ implements MessageListener, TweenListener
     {
         GameHelper.reset();
         GameHelper.animBoardHide();
-        ServiceProvider.addMessage( this, 200, MSG_BOARD_IN); // board-in
+        JobService.add( this, 200, MSG_BOARD_IN); // board-in
 
         // this will ensure that we include only the used tiles
         tile_layer.clear();

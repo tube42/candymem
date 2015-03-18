@@ -1,4 +1,4 @@
-package se.tube42.kidsmem.scene;
+package se.tube42.kidsmem.view;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.math.*;
@@ -10,11 +10,10 @@ import se.tube42.lib.tweeny.*;
 import se.tube42.lib.ks.*;
 import se.tube42.lib.scene.*;
 import se.tube42.lib.item.*;
+import se.tube42.lib.service.*;
 
 import se.tube42.kidsmem.data.*;
-import se.tube42.kidsmem.service.*;
-import se.tube42.kidsmem.logic.*;
-import se.tube42.kidsmem.item.*;
+import se.tube42.kidsmem.control.*;
 
 import static se.tube42.kidsmem.data.Constants.*;
 
@@ -41,8 +40,8 @@ implements TweenListener
         // candies
     	candies = new SpriteItem[COUNT];
     	for(int i = 0; i < candies.length; i++) {
-            final float r = ServiceProvider.getRandom(0, 359);
-            final float s = ServiceProvider.getRandom(0.2f, 1.4f);
+            final float r = RandomService.get(0, 359);
+            final float s = RandomService.get(0.2f, 1.4f);
             candies[i] = new SpriteItem(Assets.reg_candy2, i % Assets.reg_candy2.length);
             candies[i].setRotation(r);
             candies[i].setScale(s);
@@ -113,10 +112,10 @@ implements TweenListener
     {
         final float y0 = - size * 4;
         final float y1 = sh + size * 2;
-        final float p = ServiceProvider.getRandom(0, 1.5f);
-    	final float tr = ServiceProvider.getRandom(0.8f, 1.2f);
+        final float p = RandomService.get(0, 1.5f);
+    	final float tr = RandomService.get(0.8f, 1.2f);
     	final float t = 0.07f * sh / (0.1f + si.getScale() * tr);
-        final float a = ServiceProvider.getRandom(0.1f, 0.4f);
+        final float a = RandomService.get(0.1f, 0.4f);
 
         si.set(BaseItem.ITEM_A, a);
 
@@ -126,12 +125,12 @@ implements TweenListener
 
         final float x0 = size / 2;
         final float x1 = sw - size / 2;
-    	final float x = ServiceProvider.getRandom(x0, x1);
+    	final float x = RandomService.get(x0, x1);
     	si.setImmediate(BaseItem.ITEM_X, x);
 
 
-    	final float r0 = ServiceProvider.getRandom(0, 180);
-    	final float r1 = ServiceProvider.getRandom(120, 180) + r0;
+    	final float r0 = RandomService.get(0, 180);
+    	final float r1 = RandomService.get(120, 180) + r0;
 
     	si.pause(BaseItem.ITEM_R, r0, p).tail(r1).configure(t, null);
     }

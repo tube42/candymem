@@ -12,9 +12,13 @@ public class Constants
 
     public final static int
           COLOR_TOP = 0x3f51b5,
-          COLOR_BG = 0xC5CaE9,
           COLOR_STATS = 0xFFFFFF
           ;
+    public static final int [] 
+          COLOR_BG = { 0xB5A5A9, 0x857a99, 0xC5CaA9, 0xD5CaE9 }
+    ;
+
+
 
     public final static int
           TOP_DELTA_Y = -5 // the offset where rect starts, after shadow

@@ -3,8 +3,9 @@ package se.tube42.lib.service;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.glutils.*;
 import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.files.*;
 
 import java.util.*;
 
@@ -12,7 +13,14 @@ import java.util.*;
 public class AssetService
 {
 
-
+    
+    public static ShaderProgram loadShader(String vertexfile, String fragmentfile)
+    {
+        FileHandle fv = Gdx.files.internal(vertexfile);
+        FileHandle ff = Gdx.files.internal(fragmentfile);
+        return new ShaderProgram(fv, ff);
+    }
+    
     // -------------------------------------------------------------------
     // fonts
     public static BitmapFont loadFont(String name)

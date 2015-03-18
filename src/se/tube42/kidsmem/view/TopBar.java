@@ -1,5 +1,4 @@
-
-package se.tube42.kidsmem.item;
+package se.tube42.kidsmem.view;
 
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -9,7 +8,7 @@ import se.tube42.lib.scene.*;
 import se.tube42.lib.item.*;
 
 import se.tube42.kidsmem.data.*;
-import se.tube42.kidsmem.service.*;
+import se.tube42.kidsmem.control.*;
 
 import static se.tube42.kidsmem.data.Constants.*;
 

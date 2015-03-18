@@ -95,7 +95,14 @@ implements ApplicationListener, InputProcessor
         mgr.resize(UIC.sw, UIC.sh);
     }
 
-
+    
+    protected void clear_screen()
+    {
+        // clean bg
+        Gdx.gl.glClearColor( bgc.get(0), bgc.get(1), bgc.get(2), 1f );
+        Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT );        
+    }
+    
     @Override
     public void render()
     {
@@ -110,11 +117,9 @@ implements ApplicationListener, InputProcessor
 
         onUpdate(dt, dtl);
         mgr.update(dt);         // update scene
-
-        // clean bg
-        Gdx.gl.glClearColor( bgc.get(0), bgc.get(1), bgc.get(2), 1f );
-        Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT );
-
+        
+        clear_screen();
+        
         // draw scene
         batch.begin();
         onPreDraw(batch);

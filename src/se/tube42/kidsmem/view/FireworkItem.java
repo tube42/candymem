@@ -1,5 +1,4 @@
-
-package se.tube42.kidsmem.item;
+package se.tube42.kidsmem.view;
 
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -8,9 +7,10 @@ import se.tube42.lib.tweeny.*;
 import se.tube42.lib.item.*;
 import se.tube42.lib.util.*;
 import se.tube42.lib.ks.*;
+import se.tube42.lib.service.*;
 
 import se.tube42.kidsmem.data.*;
-import se.tube42.kidsmem.service.*;
+import se.tube42.kidsmem.control.*;
 
 public class FireworkItem
 extends ParticleItem
@@ -39,11 +39,11 @@ extends ParticleItem
     private void emit1()
     {
         final float ya = -20;
-        final float xa = ServiceProvider.getRandom(0, UI.sw);
+        final float xa = RandomService.get(0, UI.sw);
         final float xb = Math.max(0, Math.min(UI.sw,
-                  xa + ServiceProvider.getRandom(0, UI.sw / 3)));
-        final float yb = UI.sh * 0.3f + ServiceProvider.getRandom(0, UI.sh * 0.7f);
-        final float t = ServiceProvider.getRandom(0.6f, 1.0f);
+                  xa + RandomService.get(0, UI.sw / 3)));
+        final float yb = UI.sh * 0.3f + RandomService.get(0, UI.sh * 0.7f);
+        final float t = RandomService.get(0.6f, 1.0f);
 
         setState(0);
         setPosition(xa, ya);

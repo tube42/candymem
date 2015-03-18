@@ -10,7 +10,7 @@ import se.tube42.lib.scene.*;
 import se.tube42.lib.item.*;
 
 import se.tube42.kidsmem.*;
-import se.tube42.kidsmem.item.*;
+import se.tube42.kidsmem.view.*;
 
 
 public class World
@@ -28,13 +28,13 @@ public class World
 
     // Items
     public static TopBar top;
+    public static BackgroundMesh bg;
 
     // sprites etc
     public static TileSprite [] tiles;
 
     // screen and board
     public static SceneManager mgr;
-    public static Item color_bg;
 
     public static int board_w, board_h;
     public static TileSprite sel1, sel2;
@@ -46,5 +46,5 @@ public class World
 
 
     // counters
-    public static int cnt_total, cnt_match;
+    public static int cnt_total, cnt_match;        
 }

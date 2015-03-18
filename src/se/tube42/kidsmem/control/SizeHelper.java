@@ -1,8 +1,7 @@
-package se.tube42.kidsmem.logic;
+package se.tube42.kidsmem.control;
 
 import se.tube42.kidsmem.data.*;
-import se.tube42.kidsmem.service.*;
-import se.tube42.kidsmem.item.*;
+import se.tube42.kidsmem.view.*;
 
 import static se.tube42.kidsmem.data.Assets.*;
 import static se.tube42.kidsmem.data.UI.*;

@@ -1,5 +1,4 @@
-
-package se.tube42.kidsmem.item;
+package se.tube42.kidsmem.view;
 
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -7,9 +6,10 @@ import com.badlogic.gdx.graphics.g2d.*;
 import se.tube42.lib.tweeny.*;
 import se.tube42.lib.scene.*;
 import se.tube42.lib.item.*;
+import se.tube42.lib.service.*;
 
 import se.tube42.kidsmem.data.*;
-import se.tube42.kidsmem.service.*;
+import se.tube42.kidsmem.control.*;
 
 public class TileSprite
 extends SpriteItem
@@ -43,8 +43,8 @@ implements TweenListener
         final float v1 = visible ? 1 : 0;
         final TweenEquation eq1 = visible ? TweenEquation.BACK_OUT : null;
 
-        final float p = pause + ServiceProvider.getRandom(0, 0.1f);
-        final float d = duration + ServiceProvider.getRandom(0, 0.1f);
+        final float p = pause + RandomService.get(0, 0.1f);
+        final float d = duration + RandomService.get(0, 0.1f);
 
 
         pause(ITEM_A, v0, p)

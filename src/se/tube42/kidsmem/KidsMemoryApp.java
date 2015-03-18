@@ -6,45 +6,44 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.audio.*;
 
-import se.tube42.kidsmem.data.*;
-import se.tube42.kidsmem.service.*;
-import se.tube42.kidsmem.scene.*;
-import se.tube42.kidsmem.logic.*;
-
 import se.tube42.lib.tweeny.*;
 import se.tube42.lib.ks.*;
+import se.tube42.lib.item.*;
 import se.tube42.lib.scene.*;
 import se.tube42.lib.util.*;
 
+
+import se.tube42.kidsmem.data.*;
+import se.tube42.kidsmem.view.*;
+import se.tube42.kidsmem.control.*;
 
 import static se.tube42.kidsmem.data.Constants.*;
 
 public class KidsMemoryApp extends BaseApp
 implements ApplicationListener, InputProcessor
 {
-
+    
+    
     // additional layser
     private BackgroundScene scene_bg;
 
     public KidsMemoryApp()
     {
         super(320, 480);
+        
     }
 
     public void onCreate(SceneManager mgr, Item bgc)
     {
+        ServiceProvider.init();
+        
         World.mgr = mgr;
-        World.color_bg = bgc;
 
         SettingsHelper.load();
         AssetHelper.load();
-
-        World.color_bg = bgc;
-        World.color_bg.set(0, 0);
-        World.color_bg.set(1, 0);
-        World.color_bg.set(2, 0);
-
-        for(int i = 0; i < 3; i++)	bgc.set(i, 0, 1);
+        
+        // bg mesh
+        World.bg = new BackgroundMesh();        
 
         // this must come first:
         scene_bg = new BackgroundScene();
@@ -58,10 +57,21 @@ implements ApplicationListener, InputProcessor
     public void onResize(int sw, int sh)
     {
         SizeHelper.resize(sw, sh);
+        
+        if(World.bg != null) {
+            World.bg.resize(sw, sh);
+        }        
     }
 
     public void onUpdate(float dt, long dtl)
     {
         ServiceProvider.service(dtl);
     }
+    
+    
+    protected void clear_screen()
+    {
+        World.bg.draw(camera);
+    }
+    
 }

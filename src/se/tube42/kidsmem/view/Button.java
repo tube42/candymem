@@ -1,4 +1,4 @@
-package se.tube42.kidsmem.item;
+package se.tube42.kidsmem.view;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.math.*;
@@ -9,9 +9,10 @@ import com.badlogic.gdx.Input.*;
 
 import se.tube42.lib.tweeny.*;
 import se.tube42.lib.item.*;
+import se.tube42.lib.service.*;
 
 import se.tube42.kidsmem.data.*;
-import se.tube42.kidsmem.service.*;
+import se.tube42.kidsmem.control.*;
 
 import static se.tube42.kidsmem.data.Constants.*;
 
@@ -88,8 +89,8 @@ public class Button extends BaseItem
 
     public void show(float pause, float duration)
     {
-        final float p = pause + ServiceProvider.getRandom(0, 0.2f);
-        final float t = duration + ServiceProvider.getRandom(0f, 0.1f);
+        final float p = pause + RandomService.get(0, 0.2f);
+        final float t = duration + RandomService.get(0f, 0.1f);
 
         pause(BaseItem.ITEM_S, 0.5f, p)
               .tail(1f).configure(t, TweenEquation.QUAD_OUT);
@@ -100,8 +101,8 @@ public class Button extends BaseItem
 
     public void hide(float pause, float duration)
     {
-        final float p = pause + ServiceProvider.getRandom(0f, 0.2f);
-        final float t = duration + ServiceProvider.getRandom(0f, 0.1f);
+        final float p = pause + RandomService.get(0f, 0.2f);
+        final float t = duration + RandomService.get(0f, 0.1f);
         final float c = Math.max(p, get(BaseItem.ITEM_A));
 
         pause(BaseItem.ITEM_A, c, p)
