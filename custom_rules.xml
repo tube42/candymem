@@ -17,7 +17,7 @@
     
     <!-- update submodules and build them  -->        
     <exec executable="git" failifexecutionfails="true">
-      <arg line="submodule update --init"/>
+      <arg line="submodule update --remote --init"/>
     </exec>    
     <exec executable="git" failifexecutionfails="true">
       <arg line="submodule foreach git pull origin master"/>
