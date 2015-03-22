@@ -1,8 +1,8 @@
 bin
 build
 gen
-libs/*
 local.*
 .dl
+libs
 *~
 *_app.jar
