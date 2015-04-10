@@ -41,7 +41,7 @@ public class SizeHelper
         top_h0 = sh - y2 - ps / 2;
         top_y0 = sh - top_h0;
 
-        top_h1 = 42;
+        top_h1 = UI.scale * 26;
         top_y1 = sh - top_h1;
 
         // stats:

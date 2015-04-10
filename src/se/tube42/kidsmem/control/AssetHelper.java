@@ -1,7 +1,9 @@
 package se.tube42.kidsmem.control;
 
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
+
 
 import se.tube42.lib.service.*;
 import se.tube42.kidsmem.data.*;
@@ -18,13 +20,9 @@ public class AssetHelper
 
         String base = "1/";
 
-        // fonts
-        if(UI.dpi_class > 2) {
-            font1 = AssetService.loadFont(base + "font1x2");
-            font1.setScale(0.5f);
-        } else {
-            font1 = AssetService.loadFont(base + "font1");
-        }
+
+        font1 = AssetService.createFonts("fonts/Roboto-Regular.ttf",
+                  Constants.FONT_CHARSET, UI.scale * 18)[0];
 
         long t1 = System.currentTimeMillis();
 
@@ -71,11 +69,11 @@ public class AssetHelper
         talk_play = ServiceProvider.loadSound("talk_play");
         talk_hardness = ServiceProvider.loadSoundArray("talk_hardness");
 
-        
+
         // shaders
         shader_col2 = AssetService.loadShader("shaders/col2.vertex", "shaders/col2.fragment");
-        
-        
+
+
         long t3 = System.currentTimeMillis();
 
         System.out.println("LOADED: fonts: "  + (t1 - t0) + " textures: " + (t2 - t1) + " sounds: " + (t3 - t2));

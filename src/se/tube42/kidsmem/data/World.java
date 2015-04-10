@@ -46,5 +46,5 @@ public class World
 
 
     // counters
-    public static int cnt_total, cnt_match;        
+    public static int cnt_total, cnt_match;
 }

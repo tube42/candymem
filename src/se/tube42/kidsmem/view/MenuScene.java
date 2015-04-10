@@ -212,21 +212,9 @@ implements TweenListener
 
     // --------------------------------------------------
 
-    private void anim_screen_off()
-    {
-        for(int e = 0; e < 4; e++) {
-            World.bg.setEdgeColor(e, 0, 0, 0);
-        }
-    }
-
     private void anim_screen_on()
     {
-        for(int e = 0; e < 4; e++) { 
-            final float r = ((COLOR_BG[e] >> 16) & 0xFF) / 255f;
-            final float g = ((COLOR_BG[e] >>  8) & 0xFF) / 255f;
-            final float b = ((COLOR_BG[e] >>  0) & 0xFF) / 255f;            
-            World.bg.setEdgeColor(e, 0.8f, r, g, b);
-        }
+        World.bg.startRandomColors();
     }
 
     private void anim_menus_off()

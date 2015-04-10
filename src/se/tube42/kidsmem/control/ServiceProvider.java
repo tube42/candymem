@@ -17,12 +17,12 @@ import se.tube42.kidsmem.data.*;
 
 public class ServiceProvider
 {
-    
+
     static public void init()
-    {        
+    {
     	StorageService.init("kidsmem-storage-1");
     }
-        
+
 
     public static void service(long dt)
     {

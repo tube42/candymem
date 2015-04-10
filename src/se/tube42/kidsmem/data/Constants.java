@@ -3,6 +3,11 @@ package se.tube42.kidsmem.data;
 
 public class Constants
 {
+    public final static String
+          FONT_CHARSET = "0123456789%!?"
+          ;
+
+
     public final static int
           CANVAS_W = 240,
           CANVAS_H = 380,
@@ -14,7 +19,7 @@ public class Constants
           COLOR_TOP = 0x3f51b5,
           COLOR_STATS = 0xFFFFFF
           ;
-    public static final int [] 
+    public static final int []
           COLOR_BG = { 0xB5A5A9, 0x857a99, 0xC5CaA9, 0xD5CaE9 }
     ;
 

@@ -22,28 +22,30 @@ import static se.tube42.kidsmem.data.Constants.*;
 public class KidsMemoryApp extends BaseApp
 implements ApplicationListener, InputProcessor
 {
-    
-    
+
+
     // additional layser
     private BackgroundScene scene_bg;
 
     public KidsMemoryApp()
     {
-        super(320, 480);
-        
+
     }
 
     public void onCreate(SceneManager mgr, Item bgc)
     {
         ServiceProvider.init();
-        
+
+        // set size before loading assets
+        onResize(UIC.sw, UIC.sh);
+
         World.mgr = mgr;
 
         SettingsHelper.load();
         AssetHelper.load();
-        
+
         // bg mesh
-        World.bg = new BackgroundMesh();        
+        World.bg = new BackgroundMesh();
 
         // this must come first:
         scene_bg = new BackgroundScene();
@@ -57,21 +59,21 @@ implements ApplicationListener, InputProcessor
     public void onResize(int sw, int sh)
     {
         SizeHelper.resize(sw, sh);
-        
+
         if(World.bg != null) {
             World.bg.resize(sw, sh);
-        }        
+        }
     }
 
     public void onUpdate(float dt, long dtl)
     {
         ServiceProvider.service(dtl);
     }
-    
-    
+
+
     protected void clear_screen()
     {
         World.bg.draw(camera);
     }
-    
+
 }

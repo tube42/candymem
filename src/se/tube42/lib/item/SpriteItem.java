@@ -42,12 +42,11 @@ public class SpriteItem extends BaseItem
         final float r = getRotation();
         final float w2 = w / 2;
         final float h2 = h / 2;
-        final float hp = UIC.halfpixel;
 
         sb.setColor( cr, cg, cb, a);
 
         sb.draw(textures[index],
-                x + hp, y + hp,
+                x + 0.5f, y + 0.5f,
                 w2, h2,
                 w, h,
                 s, s, r);

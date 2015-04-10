@@ -5,6 +5,7 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.glutils.*;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.freetype.*;
 import com.badlogic.gdx.files.*;
 
 import java.util.*;
@@ -13,27 +14,32 @@ import java.util.*;
 public class AssetService
 {
 
-    
+
     public static ShaderProgram loadShader(String vertexfile, String fragmentfile)
     {
         FileHandle fv = Gdx.files.internal(vertexfile);
         FileHandle ff = Gdx.files.internal(fragmentfile);
         return new ShaderProgram(fv, ff);
     }
-    
+
     // -------------------------------------------------------------------
     // fonts
-    public static BitmapFont loadFont(String name)
+    public static BitmapFont [] createFonts(String filename,
+              String charset, int... sizes)
     {
+        final FreeTypeFontGenerator g = new FreeTypeFontGenerator(
+                  Gdx.files.internal(filename));
+        if(g == null) return null;
 
-        BitmapFont ret = new BitmapFont(
-                  Gdx.files.internal(name + ".fnt"),
-                  Gdx.files.internal(name + ".png"),
-                  false, true);
+        BitmapFont [] ret = new BitmapFont[sizes.length];
+        for(int i = 0; i < sizes.length; i++) {
+            ret[i] = g.generateFont(sizes[i], charset, false);
+            ret[i].setUseIntegerPositions(true);
+        }
 
+        g.dispose(); // to avoid memory leaks!
         return ret;
     }
-
 
     public static ParticleEffectPool loadParticle(String dir, String name)
     {
