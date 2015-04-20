@@ -17,9 +17,9 @@
     <mkdir dir="libs/pc" />
     <mkdir dir="libs/bin" />
     
-    <!-- update submodules and build them  -->
+    <!-- update submodules, build them & copy the resulting jars -->
     <exec executable="git" failifexecutionfails="true">
-      <arg line="submodule update --remote --init"/>
+      <arg line="submodule update --init"/>
     </exec>
     <exec executable="git" failifexecutionfails="true">
       <arg line="submodule foreach ant dist"/>
@@ -60,7 +60,7 @@
     <fail message="libGDX damadged! ${gdx_checksum} != ${gdx_checksum_computed}"
       if="${gdx_verify}" />
     
-    <!-- verify it and unpack it to a temporary dir -->
+    <!-- unpack it to a temporary dir -->
     <unzip src="${user.home}/.android/.dl/gdx-${gdx_version}.zip" dest="libs/tmp"/>
     <unjar src="libs/tmp/gdx.jar" dest="libs/common" />
     <unjar src="libs/tmp/extensions/gdx-freetype/gdx-freetype.jar" dest="libs/common" />
