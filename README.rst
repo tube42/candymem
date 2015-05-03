@@ -12,7 +12,7 @@ This is a FOSS memory game for Android.
 Downloads:
 
 - From Google `Play Store <https://play.google.com/store/apps/details?id=se.tube42.kidsmem.android>`_
-- From `Fdroid <https://f-droid.org/repository/browse/?fdfilter=candy&fdid=se.tube42.kidsmem.android>`_
+- From `Fdroid <https://f-droid.org/repository/browse/?fdid=se.tube42.kidsmem.android>`_
 
 
 
