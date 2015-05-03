@@ -9,13 +9,17 @@ This is a FOSS memory game for Android.
 .. image:: http://tube42.github.io/candymem/img/img00.png
 
 
-To download, go to https://play.google.com/store/apps/details?id=se.tube42.kidsmem.android
+Downloads:
+
+- From Google `Play Store <https://play.google.com/store/apps/details?id=se.tube42.kidsmem.android>`_
+- From `Fdroid <https://f-droid.org/repository/browse/?fdfilter=candy&fdid=se.tube42.kidsmem.android>`_
+
 
 
 Acknowledgements
 ----------------
 
-The candy graphics was extracted from public domain images created by the talented Luisa Midori ( @lumimae on twitter).
+The candy graphics was extracted from public domain images created by the talented Luisa Midori ( @lumimae on twitter ).
 
 
 
