@@ -28,7 +28,7 @@ public class World
 
     // Items
     public static TopBar top;
-    public static BackgroundMesh bg;
+    public static Item bgc;
 
     // sprites etc
     public static TileSprite [] tiles;

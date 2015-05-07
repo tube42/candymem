@@ -16,16 +16,10 @@ public class AssetHelper
 
     public static void load()
     {
-        long t0 = System.currentTimeMillis();
-
         String base = "1/";
-
 
         font1 = AssetService.createFonts("fonts/Roboto-Regular.ttf",
                   Constants.FONT_CHARSET, UI.scale * 18)[0];
-
-        long t1 = System.currentTimeMillis();
-
 
         // patches
         np_shadow = AssetService.loadPatch(base + "shadow.9.png", 6, 5, 6, 5);
@@ -56,8 +50,6 @@ public class AssetHelper
         pep_firework = AssetService.loadParticle(base, "firework");
         pep_trail = AssetService.loadParticle(base, "trail");
 
-        long t2 = System.currentTimeMillis();
-
         // audio
         sound_yes = ServiceProvider.loadSoundArray("yes");
         sound_no  = ServiceProvider.loadSoundArray("no");
@@ -68,15 +60,5 @@ public class AssetHelper
         talk_off = ServiceProvider.loadSound("talk_off");
         talk_play = ServiceProvider.loadSound("talk_play");
         talk_hardness = ServiceProvider.loadSoundArray("talk_hardness");
-
-
-        // shaders
-        shader_col2 = AssetService.loadShader("shaders/col2.vertex", "shaders/col2.fragment");
-
-
-        long t3 = System.currentTimeMillis();
-
-        System.out.println("LOADED: fonts: "  + (t1 - t0) + " textures: " + (t2 - t1) + " sounds: " + (t3 - t2));
-
     }
 }

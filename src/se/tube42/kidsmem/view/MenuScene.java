@@ -213,8 +213,9 @@ implements TweenListener
     // --------------------------------------------------
 
     private void anim_screen_on()
-    {
-        World.bg.startRandomColors();
+    {        
+        for(int i = 0; i < 3; i++)                
+            World.bgc.set(i, COLOR_BG[i]).configure(1f, null);
     }
 
     private void anim_menus_off()

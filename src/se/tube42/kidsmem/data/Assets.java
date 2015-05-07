@@ -10,10 +10,6 @@ import com.badlogic.gdx.audio.*;
 public final class Assets
 {
 
-    // -------------------------------------------------
-    // shaders
-    public static ShaderProgram shader_col2;
-
 
     // -------------------------------------------------
     // ninepatch

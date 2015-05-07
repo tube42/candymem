@@ -40,12 +40,13 @@ implements ApplicationListener, InputProcessor
         onResize(UIC.sw, UIC.sh);
 
         World.mgr = mgr;
+        World.bgc = bgc;
+        bgc.setImmediate(0, 0);
+        bgc.setImmediate(1, 0);
+        bgc.setImmediate(2, 0);       
 
         SettingsHelper.load();
         AssetHelper.load();
-
-        // bg mesh
-        World.bg = new BackgroundMesh();
 
         // this must come first:
         scene_bg = new BackgroundScene();
@@ -59,21 +60,10 @@ implements ApplicationListener, InputProcessor
     public void onResize(int sw, int sh)
     {
         SizeHelper.resize(sw, sh);
-
-        if(World.bg != null) {
-            World.bg.resize(sw, sh);
-        }
     }
 
     public void onUpdate(float dt, long dtl)
     {
         ServiceProvider.service(dtl);
     }
-
-
-    protected void clear_screen()
-    {
-        World.bg.draw(camera);
-    }
-
 }

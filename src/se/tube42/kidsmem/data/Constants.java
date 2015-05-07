@@ -19,8 +19,11 @@ public class Constants
           COLOR_TOP = 0x3f51b5,
           COLOR_STATS = 0xFFFFFF
           ;
-    public static final int []
-          COLOR_BG = { 0xB5A5A9, 0x857a99, 0xC5CaA9, 0xD5CaE9 }
+
+
+    public static final float []
+          // COLOR_BG = { 0xB5A5A9, 0x857a99, 0xC5CaA9, 0xD5CaE9 }
+          COLOR_BG = { 0.8f, 0.85f, 0.87f }
     ;
 
 

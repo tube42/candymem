@@ -14,14 +14,6 @@ import java.util.*;
 public class AssetService
 {
 
-
-    public static ShaderProgram loadShader(String vertexfile, String fragmentfile)
-    {
-        FileHandle fv = Gdx.files.internal(vertexfile);
-        FileHandle ff = Gdx.files.internal(fragmentfile);
-        return new ShaderProgram(fv, ff);
-    }
-
     // -------------------------------------------------------------------
     // fonts
     public static BitmapFont [] createFonts(String filename,
