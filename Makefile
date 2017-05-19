@@ -4,7 +4,7 @@
 
 INKSCAPE=inkscape
 
-MARM = java -jar submodules/marm/marm_app.jar hiero=libs/bin/hiero
+MARM = java -jar submodules/marm/marm_app.jar hiero=libs/bin/hiero -v
 COMPO= java -jar submodules/composition/Composition_app.jar
 
 ##
@@ -38,4 +38,3 @@ clean:
 	rm -rf assets/1
 	rm -rf $(CLEAN_ADD)
 	rm -rf res/drawable-*/ic_launcher.png
-
