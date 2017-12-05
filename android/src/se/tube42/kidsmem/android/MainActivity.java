@@ -57,7 +57,7 @@ implements SystemHandler
         try_run(new Runnable() {
             @Override public void run(){
                 try {
-                    Toast t = Toast.makeText(MainActivity.this, text, 12000);
+                    Toast t = Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT);
                     t.show();
                 } catch(Exception exx) {
                 System.out.println("ERROR: " + exx);

@@ -100,6 +100,10 @@ task setupTweeny(type: Exec) {
     workingDir "submodules/tweeny"
     commandLine "ant", "dist"
 }
+task setupMarm(type: Exec) {
+    workingDir "submodules/marm"
+    commandLine "ant", "dist"
+}
 
-task setup(dependsOn: ["setupKickstarter", "setupTweeny"] ) {
+task setup(dependsOn: ["setupKickstarter", "setupTweeny", "setupMarm"] ) {
 }
