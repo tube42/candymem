@@ -74,6 +74,7 @@ project(":android") {
 
 project(":core") {
     apply plugin: "java"
+
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
@@ -81,7 +82,6 @@ project(":core") {
         compile files(
             "../submodules/kickstarter/Kickstarter_lib.jar",
             "../submodules/tweeny/Tweeny_lib.jar")
-
     }
 }
 
@@ -101,8 +101,5 @@ task setupTweeny(type: Exec) {
     commandLine "ant", "dist"
 }
 
-
 task setup(dependsOn: ["setupKickstarter", "setupTweeny"] ) {
-
 }
-
