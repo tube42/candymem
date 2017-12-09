@@ -5,7 +5,6 @@
 INKSCAPE=inkscape
 
 MARM = java -jar submodules/marm/marm_app.jar hiero=libs/bin/hiero -v
-COMPO= java -jar submodules/composition/Composition_app.jar
 
 ##
 
@@ -25,11 +24,12 @@ marm:
 	cd android/assets && rm -rf 1 2 4
 	$(MARM) resize -1 extra/assets android/assets
 
-compo:
-	$(COMPO) android/assets/compo/compo.bin
 ##
 
 clean:
 	rm -rf android/assets/1
 	rm -rf $(CLEAN_ADD)
 	rm -rf android/res/drawable-*/ic_launcher.png
+	- cd submodules/marm && ant clean
+setup:
+	cd submodules/marm && ant dist

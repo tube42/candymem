@@ -3,7 +3,7 @@ buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        // maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         jcenter()
     }
     dependencies {
@@ -15,7 +15,7 @@ allprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
 
-    version = '1.0'
+    version = '1.5.2'
     ext {
         appName = "my-gdx-game"
         gdxVersion = '1.9.7'
@@ -30,6 +30,7 @@ allprojects {
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        jcenter()
     }
 }
 
@@ -63,47 +64,19 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-arm64-v8a"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86_64"
-
-        // see https://github.com/libgdx/libgdx/wiki/Dependency-management-with-Gradle#file-dependencies
-        compile files(
-            "../submodules/kickstarter/Kickstarter_lib.jar",
-            "../submodules/tweeny/Tweeny_lib.jar")
-
     }
 }
 
 project(":core") {
     apply plugin: "java"
-
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
-
-        compile files(
-            "../submodules/kickstarter/Kickstarter_lib.jar",
-            "../submodules/tweeny/Tweeny_lib.jar")
+        compile "se.tube42.tweeny:tweeny:0.3.1"
+        compile "se.tube42.ks:ks:0.3.1"
     }
 }
 
 tasks.eclipse.doLast {
     delete ".project"
-}
-
-
-task setupKickstarter(type: Exec) {
-    workingDir "submodules/kickstarter"
-    commandLine "ant", "dist"
-}
-
-
-task setupTweeny(type: Exec) {
-    workingDir "submodules/tweeny"
-    commandLine "ant", "dist"
-}
-task setupMarm(type: Exec) {
-    workingDir "submodules/marm"
-    commandLine "ant", "dist"
-}
-
-task setup(dependsOn: ["setupKickstarter", "setupTweeny", "setupMarm"] ) {
 }

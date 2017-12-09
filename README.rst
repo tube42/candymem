@@ -25,22 +25,15 @@ The candy graphics was extracted from public domain images created by the talent
 Building
 --------
 
-To build this app, you will need
-
-1. java, ant, android SDK and all that
-2. The rest (libgdx, marm, tweeny, ks, ...) is downloaded when you do setup
-
-To setup the project and download required libraries, binaries (all FOSS) and assets
-
-* ./gradlew setup
+To build this app, you will need java, ant, android SDK and all that
 
 To build the project and run on desktop
-
-* ./gradlew desktop:run
+::
+  ./gradlew desktop:run
 
 To build for android and upload it to your device
-
-* ./gradlew debugInstall
+::
+  ./gradlew debugInstall
 
 Assets
 ------
@@ -49,11 +42,14 @@ Asset sources are found under the extra folder. To compile assets you will need 
 
 1. ImageMagic for converting PNG images
 2. Inkscape for rendering SVG files
-3. The rest are downloaded during setup...
+3. The rest are downloaded during setup
+::
+  make setup
+
 
 To build the assets, you should do
-
-* make
+::
+  make
 
 Notes
 -----
