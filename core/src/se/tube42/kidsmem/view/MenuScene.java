@@ -45,7 +45,6 @@ implements TweenListener
         }
 
         getLayer(0).add(buttons);
-
         update();
     }
 
@@ -57,14 +56,11 @@ implements TweenListener
         if(first) {
             first = false;
             anim_menus_off();
-
             if(World.top != null) {
                 World.top.show(1.5f, 1.5f);
             }
-
             anim_screen_on();
         }
-
         anim_menus_on();
     }
 
@@ -149,9 +145,8 @@ implements TweenListener
         return true;
     }
 
-    public boolean touch(int x, int y, boolean down, boolean drag)
+    public boolean touch(int ptr, int x, int y, boolean down, boolean drag)
     {
-
         if(!down) {
             anim_menu_release_all();
         }
@@ -213,8 +208,8 @@ implements TweenListener
     // --------------------------------------------------
 
     private void anim_screen_on()
-    {        
-        for(int i = 0; i < 3; i++)                
+    {
+        for(int i = 0; i < 3; i++)
             World.bgc.set(i, COLOR_BG[i]).configure(1f, null);
     }
 

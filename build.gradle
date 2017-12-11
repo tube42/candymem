@@ -3,7 +3,6 @@ buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
-        // maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         jcenter()
     }
     dependencies {
@@ -15,7 +14,7 @@ allprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
 
-    version = '1.5.2'
+    version = '1.5.3'
     ext {
         appName = "my-gdx-game"
         gdxVersion = '1.9.7'
@@ -74,6 +73,7 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         compile "se.tube42.tweeny:tweeny:0.3.1"
         compile "se.tube42.ks:ks:0.3.1"
+        compile "se.tube42.base42:base42:0.3.3"
     }
 }
 

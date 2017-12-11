@@ -76,6 +76,9 @@ implements MessageListener, TweenListener
         text1 = new GameStat();
         getLayer(2).add(text0);
         getLayer(2).add(text1);
+
+        // first time reset is needed when resize() is called before onShow()
+        GameHelper.reset();
     }
 
     public void onShow()
@@ -93,7 +96,6 @@ implements MessageListener, TweenListener
     public void resize(int sw, int sh)
     {
     	super.resize(sw, sh);
-
         GameHelper.positionBoard();
 
         // top:
@@ -103,7 +105,6 @@ implements MessageListener, TweenListener
 
         text0.setPosition(16, UI.stats_yc);
         text1.setPosition(sw - 16, UI.stats_yc);
-
         text0.setAlignment(0, +0.5f);
         text1.setAlignment(-1, +0.5f);
     }
@@ -127,7 +128,7 @@ implements MessageListener, TweenListener
         return true;
     }
 
-    public boolean touch(int x, int y, boolean down, boolean drag)
+    public boolean touch(int ptr, int x, int y, boolean down, boolean drag)
     {
         if(World.state != World.STATE_SEL1 &&
            World.state != World.STATE_SEL2) {
@@ -218,6 +219,5 @@ implements MessageListener, TweenListener
             break;
         }
     }
-
 }
 

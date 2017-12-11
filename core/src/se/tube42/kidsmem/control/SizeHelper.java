@@ -11,6 +11,9 @@ public class SizeHelper
 {
     public static void resize(int sw, int sh)
     {
+        UI.resize(sw, sh);
+        UI.scale = (int) (0.5f + Math.min(4, Math.max(1, sh / 400f)));
+
         resize_menu(sw, sh);
         resizeBoard(sw, sh);
     }
@@ -88,5 +91,4 @@ public class SizeHelper
         System.out.println("board origin=" + board_x0 + "," + board_y0 +
                   " size=" + size + " gap=" + gap);
     }
-
 }

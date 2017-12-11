@@ -35,15 +35,15 @@ public class AssetHelper
         tex_tiles = AssetService.load(base + "tiles.png", true);
 
         // regions
-        reg_candy2 = AssetService.divide(tex_candy2, 256 / 6, 64);
+        reg_candy2 = AssetService.divide(tex_candy2, 6, 2);
 
-        reg_menu = AssetService.divide(tex_menu, 128, 128);
-        reg_menu_shadow = AssetService.divide(tex_menu_shadow, 128, 128);
-        reg_candy1 = AssetService.divide(tex_candy1, 102, 102);
-        reg_tiles = AssetService.divide(tex_tiles, 128, 128);
+        reg_menu = AssetService.divide(tex_menu, 4, 2);
+        reg_menu_shadow = AssetService.divide(tex_menu_shadow, 2, 1);
+        reg_candy1 = AssetService.divide(tex_candy1, 5, 5);
+        reg_tiles = AssetService.divide(tex_tiles, 2, 1);
 
         Texture tmp = AssetService.load(base + "rect.png", false);
-        reg_rect = AssetService.divide(tmp, 8, 8);
+        reg_rect = AssetService.divide(tmp, 1, 1);
 
         // particles
         pep_explode = AssetService.loadParticle(base, "explode");

@@ -82,8 +82,8 @@ public class GameHelper
             final TileSprite si = World.board[i];
             final float y = UI.board_y0 + (i / bw) * gap;
             final float x = UI.board_x0 + (i % bw) * gap;
-            World.board[i].setPosition(x, y);
-            World.board[i].setSize(size, size);
+            si.setPosition(x, y);
+            si.setSize(size, size);
         }
     }
 

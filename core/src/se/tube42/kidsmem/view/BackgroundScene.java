@@ -65,8 +65,6 @@ implements TweenListener
         player = getLayer(2);
         player.add(pis);
 
-
-
     }
 
     public void resize(int sw, int sh)
@@ -144,7 +142,7 @@ implements TweenListener
         return null;
     }
 
-    public boolean touch(int x, int y, boolean down, boolean drag)
+    public boolean touch(int ptr, int x, int y, boolean down, boolean drag)
     {
         if(down && !drag) {
             final SpriteItem si = get_at(x, y);

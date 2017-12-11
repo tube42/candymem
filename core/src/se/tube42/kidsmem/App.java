@@ -41,7 +41,7 @@ implements ApplicationListener, InputProcessor
         World.bgc = bgc;
         bgc.setImmediate(0, 0);
         bgc.setImmediate(1, 0);
-        bgc.setImmediate(2, 0);       
+        bgc.setImmediate(2, 0);
 
         SettingsHelper.load();
         AssetHelper.load();
