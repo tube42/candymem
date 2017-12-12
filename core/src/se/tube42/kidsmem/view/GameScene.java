@@ -200,7 +200,13 @@ implements MessageListener, TweenListener
             if(GameHelper.gameIsFinished() ) {
                 World.state = World.STATE_END;
                 GameHelper.showEnd(this, MSG_ANIMATED_END,
-                          this, MSG_FIREWORK);
+                    this, MSG_FIREWORK);
+
+                Statistics.count[Settings.size]++;
+                if(Statistics.best[Settings.size] == -1 || Statistics.best[Settings.size] > World.cnt_total) {
+                    Statistics.best[Settings.size] = World.cnt_total;
+                }
+                IOHelper.saveStatistics();
             }
             break;
 

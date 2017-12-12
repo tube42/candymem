@@ -95,6 +95,7 @@ public class GameHelper
         return null;
     }
 
+
     public static boolean gameIsFinished()
     {
         for(int i = 0; i < World.board.length; i++)

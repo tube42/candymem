@@ -4,6 +4,7 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g3d.particles.ParticleShader.Setters;
 import com.badlogic.gdx.audio.*;
 import com.badlogic.gdx.Input.*;
 
@@ -25,6 +26,7 @@ implements TweenListener
           MSG_SHOW_GAME = 0
           ;
 
+    private BaseText stats;
     private Button [] buttons;
     private SceneManager mgr;
     private boolean first, enabled;
@@ -45,6 +47,14 @@ implements TweenListener
         }
 
         getLayer(0).add(buttons);
+
+        // stats text
+        stats = new BaseText( Assets.font1);
+        stats.setColor(COLOR_STATS);
+        stats.setText("");
+        stats.setAlignment(-0.5f, - 2.5f);
+        getLayer(1).add(stats);
+
         update();
     }
 
@@ -66,7 +76,7 @@ implements TweenListener
 
     public void onHide()
     {
-        SettingsHelper.save(); // save settings
+        IOHelper.saveSettings();
     }
 
 
@@ -79,6 +89,15 @@ implements TweenListener
 
         if(World.sys != null)
             World.sys.setFullscreen(Settings.fullscreen);
+
+        // update score
+        final int best = Statistics.best[Settings.size];
+        final int count = Statistics.count[Settings.size];
+        if(best > 0) {
+            stats.setText("best: " + best);
+        } else {
+            stats.setText("");
+        }
     }
 
     public void resize(int sw, int sh)
@@ -97,6 +116,9 @@ implements TweenListener
         buttons[MENU_SOUND].setPosition( UI.button_small_x0, UI.button_small_y);
         buttons[MENU_HARDNESS].setPosition( UI.button_small_x2, UI.button_small_y);
         buttons[MENU_FULLSCREEN].setPosition( UI.button_small_x1, UI.button_small_y);
+
+
+        stats.setPosition(0, sw / 2, sh);
 
         // top:
         if(World.top != null) {
@@ -138,7 +160,7 @@ implements TweenListener
     {
         if(down) {
             if (key == Keys.BACK || key == Keys.ESCAPE) {
-                SettingsHelper.save(); // save settings
+                IOHelper.saveSettings(); // save settings
                 Gdx.app.exit();
             }
         }
@@ -175,8 +197,8 @@ implements TweenListener
                     break;
 
                     case MENU_HARDNESS: // hardness
-                    Settings.size = (Settings.size + 1) % 3;
-                    ServiceProvider.play(Assets.talk_hardness[Settings.size]);
+                        Settings.size = (Settings.size + 1) % 3;
+                        ServiceProvider.play(Assets.talk_hardness[Settings.size]);
                     break;
 
                     case MENU_FULLSCREEN: // fullscreen
@@ -209,12 +231,14 @@ implements TweenListener
 
     private void anim_screen_on()
     {
+        System.out.println("screen on"); // DEBUG
         for(int i = 0; i < 3; i++)
             World.bgc.set(i, COLOR_BG[i]).configure(1f, null);
     }
 
     private void anim_menus_off()
     {
+        System.out.println("menus off"); // DEBUG
         for(int i = 0; i < buttons.length; i++) {
             buttons[i].setScale(1f);
             buttons[i].setAlpha(0f);
@@ -223,6 +247,7 @@ implements TweenListener
 
     private void anim_menus_on()
     {
+        System.out.println("menus on"); // DEBUG
         for(int i = 0; i < buttons.length; i++)
             buttons[i].show(0.3f + i * 0.15f, 0.4f);
 
@@ -231,6 +256,7 @@ implements TweenListener
 
     private void anim_menus_out()
     {
+        System.out.println("menus out"); // DEBUG
         for(int i = 0; i < buttons.length; i++) {
             buttons[i].setImmediate(Button.ITEM_S2, 1f);
             buttons[i].hide(0.3f + i * 0.15f, 0.5f);
@@ -242,6 +268,7 @@ implements TweenListener
 
     private void anim_menu_release_all()
     {
+        System.out.println("release all"); // DEBUG
         for(int i = 0; i < buttons.length; i++)
             buttons[i].release();
     }

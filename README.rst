@@ -4,10 +4,13 @@ Candy Memory
 .. image:: https://circleci.com/gh/tube42/candymem/tree/master.svg?style=svg
     :target: https://circleci.com/gh/tube42/candymem/tree/master
 
+.. image:: https://travis-ci.org/tube42/candymem.svg?branch=master
+    :target: https://travis-ci.org/tube42/candymem
+
+
 This is a FOSS memory game for Android.
 
 .. image:: http://tube42.github.io/candymem/img/img00.png
-
 
 Downloads:
 

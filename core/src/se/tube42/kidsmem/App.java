@@ -43,7 +43,8 @@ implements ApplicationListener, InputProcessor
         bgc.setImmediate(1, 0);
         bgc.setImmediate(2, 0);
 
-        SettingsHelper.load();
+        IOHelper.loadSettings();
+        IOHelper.loadStatistics();
         AssetHelper.load();
 
         // this must come first:

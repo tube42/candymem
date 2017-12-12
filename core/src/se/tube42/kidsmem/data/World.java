@@ -44,7 +44,6 @@ public class World
     // misc:
     public static SystemHandler sys = null;
 
-
     // counters
     public static int cnt_total, cnt_match;
 }

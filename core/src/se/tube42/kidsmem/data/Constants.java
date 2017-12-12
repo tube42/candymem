@@ -4,7 +4,7 @@ package se.tube42.kidsmem.data;
 public class Constants
 {
     public final static String
-          FONT_CHARSET = "0123456789%!?"
+          FONT_CHARSET = "abcdefghijklmnopqrstuvwxyz-.:0123456789%!?"
           ;
 
 
