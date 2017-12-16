@@ -13,12 +13,12 @@ import se.tube42.kidsmem.control.*;
 public class GameStat extends BaseText
 implements TweenListener
 {
-    private String next_text;
+	private String next_text;
+
     public GameStat()
     {
         super(Assets.font1);
-
-        setColor(Constants.COLOR_STATS);
+		setColor(Constants.COLOR_FG1);
         clear();
     }
 

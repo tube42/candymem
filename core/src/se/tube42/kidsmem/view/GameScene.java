@@ -18,150 +18,127 @@ import se.tube42.kidsmem.data.*;
 import se.tube42.kidsmem.control.*;
 
 import static se.tube42.kidsmem.data.Constants.*;
+import static se.tube42.kidsmem.data.Assets.*;
 
 public class GameScene extends Scene
 implements MessageListener, TweenListener
 {
-    public static final int
-          MSG_BOARD_IN = 0,
-          MSG_BOARD_OUT = 1,
+	public static final int
+		MSG_BOARD_SHOW = 0,
+		MSG_BOARD_CHECK = 1,
+		MSG_FIREWORK = 2,
+		MSG_END= 3
+		;
 
-          MSG_SEL1_FINISH = 10,
-          MSG_SEL2_FINISH = 11,
-          MSG_MATCH_YES = 12,
-          MSG_MATCH_NO = 13,
-
-          MSG_ANIMATED_END = 14,
-          MSG_FIREWORK = 15
+	public static final int
+		  COUNT_FIREWORKS = 12,
+		  COUNT_PARTICLES = 10
           ;
 
-    public static final int
-          COUNT_FIREWORKS = 6
-          ;
+	private int cntf; // firework turn variable
 
-    // ---------------------------------------------
+	private Board board;
     private SceneManager mgr;
-    private Item back_timer;
-    private Layer tile_layer;
+    private SpriteItem top;
+	private Layer tile_layer;
+	private ParticleLayer particle_layer;
     private GameStat text0, text1;
 
-    // end game partiles
-    private int cntf;
+	private TileSprite []tiles;
+	private FireworkItem []fireworks;
 
     public GameScene(SceneManager mgr)
     {
     	super("game");
 
-        this.mgr = mgr;
-        this.back_timer = new Item(1);
+		this.board = new Board();
+		this.mgr = mgr;
+		this.cntf = 0;
 
-        back_timer.set(0, 0);
+		tiles = new TileSprite[COUNT_W * COUNT_H];
+        for(int i = 0; i < tiles.length; i++)
+			tiles[i] = new TileSprite(Assets.reg_tiles, Assets.reg_candy1);
 
-        World.tiles = new TileSprite[COUNT_W * COUNT_H];
-        World.board = new TileSprite[World.board_w * World.board_h];
-        World.fireworks = new FireworkItem[COUNT_FIREWORKS];
+        fireworks = new FireworkItem[COUNT_FIREWORKS];
+        for(int i = 0; i < fireworks.length; i++)
+            fireworks[i] = new FireworkItem();
+		getLayer(0).add(fireworks);
 
-        for(int i = 0; i < World.tiles.length; i++)
-            World.tiles[i] = new TileSprite(Assets.reg_tiles, Assets.reg_candy1);
+		// bar and text stuff
+		top = new SpriteItem(reg_rect);
+		top.setColor(COLOR_BG2);
 
-        for(int i = 0; i < World.fireworks.length; i++)
-            World.fireworks[i] = new FireworkItem();
+		text0 = new GameStat();
+		text1 = new GameStat();
+		text0.setAlignment(0, +0.5f);
+		text1.setAlignment(-1, +0.5f);
 
-        // add some of the visible stuff to layers
-        getLayer(0).add(World.fireworks);
-        tile_layer = getLayer(1);
+		getLayer(1).add(top);
+        getLayer(1).add(text0);
+		getLayer(1).add(text1);
 
-        // text stuff
-        text0 = new GameStat();
-        text1 = new GameStat();
-        getLayer(2).add(text0);
-        getLayer(2).add(text1);
+		tile_layer = getLayer(2);// tiles will go here
 
-        // first time reset is needed when resize() is called before onShow()
-        GameHelper.reset();
+		particle_layer = new ParticleLayer();
+		addLayer(particle_layer);
     }
 
     public void onShow()
     {
-        GameHelper.reset();
-        GameHelper.animBoardHide();
-        JobService.add( this, 200, MSG_BOARD_IN); // board-in
+		GameHelper.reset(board, tiles, Settings.size);
+		positionBoard(UI.sw,UI.sh);
 
-        // this will ensure that we include only the used tiles
-        tile_layer.clear();
-        tile_layer.add(World.board);
-    }
+		tile_layer.clear();
+		for(int i = 0; i < board.count; i++) {
+			tiles[i].setAlpha(0);
+			tile_layer.add(tiles[i]);
+		}
+		top.set(BaseItem.ITEM_A, 0,1).configure(2f, TweenEquation.LINEAR);
+		JobService.add( this, 200, MSG_BOARD_SHOW); // board-in
 
+		updateText();
+	}
+
+	public void onHide()
+	{
+		top.set(BaseItem.ITEM_A, 1, 0).configure(0.25f, TweenEquation.LINEAR);
+	}
 
     public void resize(int sw, int sh)
     {
-    	super.resize(sw, sh);
-        GameHelper.positionBoard();
+		super.resize(sw, sh);
+		positionBoard(sw, sh);
+	}
+	private void positionBoard(int sw, int sh)
+	{
+		final int h0 = Math.max(16, sh / 12);
+        top.setPosition(0, 0, sh - h0);
+        top.setSize(sw, h0);
 
-        // top:
-        if(World.top != null) {
-            World.top.resize(false);
-        }
+		text0.setPosition(h0 / 2, sh - h0 / 2);
+		text1.setPosition(sw - h0 / 2, sh - h0 / 2);
 
-        text0.setPosition(16, UI.stats_yc);
-        text1.setPosition(sw - 16, UI.stats_yc);
-        text0.setAlignment(0, +0.5f);
-        text1.setAlignment(-1, +0.5f);
+		// position tiles
+		if(board.w == 0 || board.h == 0)
+			return;
+
+		sh -= h0;
+		final int size = (~3) & (int)Math.min( 0.9f * sw / board.w, 0.9f * sh / board.h);
+		final int gapx = sw / board.w - size;
+		final int gapy = sh / board.h - size;
+
+		for(int y = 0; y < board.h; y++) {
+			for(int x = 0; x < board.w; x++) {
+				final int n = x + y * board.w;
+				tiles[ n].setSize(size,size);
+				tiles[ n].setPosition(
+					0.5f * gapx + x * (size + gapx),
+					1.0f * gapy + y * (size + gapy));
+			}
+		}
     }
 
-    // --------------------------------------------------
-
-    public boolean type(int key, boolean down)
-    {
-        if(down) {
-            if (key == Keys.BACK || key == Keys.ESCAPE) {
-
-                if(back_timer.get(0) > 0.1f) {
-                    Gdx.app.exit();
-                } else {
-                    back_timer.set(0, 1f, 0f). configure(2f, null);
-                    if(World.sys != null)
-                        World.sys.showMessage("Press again to exit");
-                }
-            }
-        }
-        return true;
-    }
-
-    public boolean touch(int ptr, int x, int y, boolean down, boolean drag)
-    {
-        if(World.state != World.STATE_SEL1 &&
-           World.state != World.STATE_SEL2) {
-            return false;
-        }
-
-        //
-        if(down && !drag) {
-            final TileSprite sel = GameHelper.getTileAt(x, y);
-
-            if(sel != null) {
-                GameHelper.select(sel, this, MSG_SEL1_FINISH, MSG_SEL2_FINISH );
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    // --------------------------------------------------
-    public void stats_update()
-    {
-        text0.setAnimatedText("" + World.cnt_total);
-        text1.setAnimatedText("" + (World.cnt_match * 100 / World.cnt_total) + "%");
-    }
-
-    public void stats_reset()
-    {
-        text0.clear();
-        text1.clear();
-    }
-
-    // --------------------------------------------------
+	// --------------------------------------------------
 
     public void onFinish(Item item, int index, int data)
     {
@@ -173,57 +150,160 @@ implements MessageListener, TweenListener
         // System.out.println("MSG = " + msg + " data0=" + data0 + " data1=" + data1);
 
         switch(msg) {
-        case MSG_BOARD_IN:
-            GameHelper.animBoardIn();
+		case MSG_BOARD_SHOW:
+			for(int i = 0; i < board.count; i++)
+				tiles[i].animShow(true);
             break;
 
-        case MSG_BOARD_OUT:
-            GameHelper.animPokeTiles();
-            break;
+		case MSG_BOARD_CHECK:
+			if(GameHelper.check(board)) {
+				if(board.state == Board.STATE_WIN)
+					gameWon();
+				else
+					tileWon();
+			} else {
+				tileLost();
+			}
+			updateText();
+			break;
 
-            // -----------------------------
-        case MSG_SEL1_FINISH:
-            break;
+		case MSG_FIREWORK:
+			fireworks(data0);
+			if(data0 <= 0)
+				JobService.add( this, 1500 , MSG_END);
+			break;
 
-        case MSG_SEL2_FINISH:
-            World.cnt_total++;
-            if(GameHelper.checkSelection(this, MSG_MATCH_YES, MSG_MATCH_NO))
-                World.cnt_match++;
-
-            stats_update();
-            break;
-
-        case MSG_MATCH_NO:
-            break;
-
-        case MSG_MATCH_YES:
-            if(GameHelper.gameIsFinished() ) {
-                World.state = World.STATE_END;
-                GameHelper.showEnd(this, MSG_ANIMATED_END,
-                    this, MSG_FIREWORK);
-
-                Statistics.count[Settings.size]++;
-                if(Statistics.best[Settings.size] == -1 || Statistics.best[Settings.size] > World.cnt_total) {
-                    Statistics.best[Settings.size] = World.cnt_total;
-                }
-                IOHelper.saveStatistics();
-            }
-            break;
-
-        case MSG_ANIMATED_END:
-            GameHelper.reset();
-            GameHelper.animBoardHide();
-            GameHelper.animBoardIn();
-            stats_reset();
-            break;
-
-        case MSG_FIREWORK:
-            if(data0 > 0) {
-                cntf = (cntf + 1) % World.fireworks.length;
-                World.fireworks[cntf].emit(this, MSG_FIREWORK, data0-1);
-            }
-            break;
+		case MSG_END:
+			for(int i = 0; i < fireworks.length; i++)
+				fireworks[i].stop();
+			mgr.setScene(World.scene_menu, 500);
+			break;
         }
+	}
+
+	private void fireworks(int level)
+	{
+		if(level < 0)
+			 return;
+
+		final int cnt = RandomService.getInt(2) + 2;
+		for(int i = 0; i < cnt; i++)  {
+			cntf = (cntf + 1) % fireworks.length;
+				fireworks[cntf].emit();
+		}
+
+		JobService.add( this, 500, MSG_FIREWORK, level - 1, null, null);
+	}
+
+	private void updateText()
+	{
+		if(board.cnt_total == 0) {
+			text0.clear();
+			text1.clear();
+		} else {
+			final int best = Statistics.best[Settings.size];
+			if(best > 0)
+				text0.setAnimatedText("" + board.cnt_total + " (" + best + ")");
+			else
+				text0.setAnimatedText("" + board.cnt_total);
+			text1.setAnimatedText("" + (board.cnt_match * 100 / board.cnt_total) + "%");
+		}
+	}
+
+	private void dropParticles(TileSprite t)
+	{
+		for(int i = 0; i < COUNT_PARTICLES; i++) {
+			Particle p = particle_layer.create(0.3f + i * 0.05f, 0.7f + i * 0.2f);
+			p.attach(t);
+			p.configure(reg_candy1, t.id, 0x20FFFFFF);
+			p.setVelocity(
+				RandomService.get(-50,+50),
+				RandomService.get(-200, +200),
+				RandomService.get(-90,+90));
+			p.setAcceleration(
+				RandomService.get(-50,+50),
+				RandomService.get(-500, 0),
+				RandomService.get(-90,+90));
+		}
+	}
+
+	private void tileWon()
+	{
+		dropParticles(tiles[board.sel1]);
+		dropParticles(tiles[board.sel2]);
+		tiles[board.sel1].match();
+		tiles[board.sel2].match();
+		ServiceProvider.playOne(Assets.sound_yes);
+	}
+
+	private void tileLost()
+	{
+		ServiceProvider.playOne(Assets.sound_no);
+		tiles[board.sel1].animFlip(false);
+		tiles[board.sel2].animFlip(false);
+	}
+	private void gameWon()
+	{
+		// udate stats
+		Statistics.count[Settings.size]++;
+		if(Statistics.best[Settings.size] == -1 || Statistics.best[Settings.size] > board.cnt_total) {
+			Statistics.best[Settings.size] = board.cnt_total;
+		}
+		IOHelper.saveStatistics();
+
+		// end sound and animation and firewors
+		ServiceProvider.play(Assets.sound_end);
+
+		for(int i = 0; i < board.count; i++)
+			tiles[i].animShow(false);
+
+		final int repeats = (int)Math.max(1, Math.min(4, (5 * board.cnt_match)
+			/ (1 + board.cnt_total)));
+
+		fireworks(repeats); // MSG_END will be posted at end if thos
+	}
+
+	private void goBack()
+	{
+        mgr.setScene(World.scene_menu, 500);
     }
+
+	private int getTileAt(float x, float y)
+    {
+		for(int i = 0; i < board.count; i++)
+            if(tiles[i].hit(x, y))
+                return i;
+        return -1;
+    }
+
+	public boolean type(int key, boolean down)
+    {
+        if(down) {
+            if (key == Keys.BACK || key == Keys.ESCAPE) {
+				goBack();
+			}
+		}
+		return true;
+	}
+
+    public boolean touch(int ptr, int x, int y, boolean down, boolean drag)
+    {
+        if(down && !drag) {
+			final int sel = getTileAt(x, y);
+			if(sel == -1 || tiles[sel].getState() != TileSprite.STATE_HIDDEN)
+				return false;
+
+			if(!GameHelper.select(board, sel))
+				return false;
+
+			TweenNode tn = tiles[sel].animFlip(true);
+
+			if(board.state == Board.STATE_SEL2)
+				tn.pause(0.6f).finish(this, MSG_BOARD_CHECK);
+			ServiceProvider.playOne(Assets.sound_hit);
+			return true;
+		}
+        return false;
+	}
 }
 

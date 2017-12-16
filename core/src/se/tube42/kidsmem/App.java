@@ -51,9 +51,8 @@ implements ApplicationListener, InputProcessor
         scene_bg = new BackgroundScene();
         mgr.setBackground(scene_bg);
 
-        // initial resource loading
-        Scene sm = new MenuScene(mgr);
-        mgr.setScene(sm);
+		// initial resource loading
+		mgr.setScene( World.scene_menu = new MenuScene(mgr) );
     }
 
     public void onResize(int sw, int sh)

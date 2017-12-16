@@ -15,35 +15,24 @@ import se.tube42.kidsmem.view.*;
 
 public class World
 {
-    // game state
-    public static final int
-          STATE_NONE = 0,
-          STATE_TEMP = 1,
-          STATE_SEL1 = 2,
-          STATE_SEL2 = 3,
-          STATE_CHECK = 4,
-          STATE_END = 5
-          ;
-    public static int state = STATE_SEL1;
-
     // Items
-    public static TopBar top;
     public static Item bgc;
 
     // sprites etc
     public static TileSprite [] tiles;
 
     // screen and board
-    public static SceneManager mgr;
+	public static SceneManager mgr;
+	public static MenuScene scene_menu;
+	public static GameScene scene_game;
 
-    public static int board_w, board_h;
+	/*
+
     public static TileSprite sel1, sel2;
     public static TileSprite [] board;
     public static FireworkItem [] fireworks;
-
+*/
     // misc:
     public static SystemHandler sys = null;
 
-    // counters
-    public static int cnt_total, cnt_match;
 }

@@ -50,12 +50,6 @@ implements TweenListener
 
     	getLayer(0).add(candies);
 
-        // top
-        World.top = new TopBar();
-        World.top.hide();
-
-        getLayer(1).add(World.top);
-
         // particles
         pis_cnt = 0;
         pis = new ParticleItem[PCOUNT];

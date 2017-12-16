@@ -4,38 +4,40 @@ package se.tube42.kidsmem.data;
 public class Constants
 {
     public final static String
-          FONT_CHARSET = "abcdefghijklmnopqrstuvwxyz-.:0123456789%!?"
-          ;
+        FONT_CHARSET = "abcdefghijklmnopqrstuvwxyz-.:0123456789%!?()"
+	;
 
+	public static final String []
+		MODE_NAMES = {"easy", "normal", "hard"}
+		;
 
-    public final static int
-          CANVAS_W = 240,
-          CANVAS_H = 380,
-          COUNT_W = 4,
-          COUNT_H = 6
-          ;
-
-    public final static int
-          COLOR_TOP = 0x3f51b5,
-          COLOR_STATS = 0xFFFFFF
-          ;
-
-
-    public static final float []
-          // COLOR_BG = { 0xB5A5A9, 0x857a99, 0xC5CaA9, 0xD5CaE9 }
-          COLOR_BG = { 0.8f, 0.85f, 0.87f }
-    ;
-
-
+	public static final int []
+		MODE_WS = {2, 3, 4},
+		MODE_HS = {3, 4, 6}
+		;
 
     public final static int
-          TOP_DELTA_Y = -5 // the offset where rect starts, after shadow
-          ;
+        CANVAS_W = 240,
+        CANVAS_H = 380,
+        COUNT_W = 4,
+        COUNT_H = 6
+        ;
 
-    public final static int
-          MENU_SOUND = 0,
-          MENU_FULLSCREEN = 1,
-          MENU_HARDNESS = 2,
-          MENU_PLAY = 3
-          ;
+
+	public static final int
+		COLOR_BG1 = 0xa4e1af,
+		COLOR_BG3 = 0xd8f3e2,
+		COLOR_BG2 = 0x83c97d,
+		COLOR_FG1 = 0x19857a
+;
+	public static final int
+		ICON_SOUND_ON = 0,
+		ICON_SOUND_OFF = 1,
+		ICON_FULL_OFF = 2,
+		ICON_FULL_ON = 3,
+		ICON_PLAY = 4,
+		ICON_MODE_EASY = 5,
+		ICON_MODE_NORMAL = 6,
+		ICON_MODE_HARD = 7
+		;
 }

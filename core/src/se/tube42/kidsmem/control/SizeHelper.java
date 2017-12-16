@@ -12,30 +12,25 @@ public class SizeHelper
     public static void resize(int sw, int sh)
     {
         UI.resize(sw, sh);
-        UI.scale = (int) (0.5f + Math.min(4, Math.max(1, sh / 400f)));
-
-        resize_menu(sw, sh);
-        resizeBoard(sw, sh);
+		UI.scale =  (int)( 0.5f + Math.min( sw / CANVAS_W ,sh / CANVAS_H));
+		if(UI.scale < 1)
+			UI.scale = 1;
+		else if(UI.scale > 2)
+			UI.scale = 4;
     }
 
+	/*
     private static void resize_menu(int sw, int sh)
     {
         // big menu button
         final int ps = Math.max(32, (~31) & (int)(Math.min(sw / 3, sh / 3.5f)));
-        final int y2 = 2 * (sh - ps) / 3;
-        button_big_size = ps;
-        button_big_x = (sw - ps) / 2;
-        button_big_y = y2;
+		final int y2 = 2 * (sh - ps) / 3;
+
 
         // small menu button
         final int size = (~15) & Math.min(sw, sh) / 5;
         final int y0 = (int)(size * 0.7f);
 
-        button_small_size = size;
-        button_small_y = y0;
-        button_small_x0 = (int)(0.5f + size * 0.4f);
-        button_small_x1 = (int)(0.5f + (sw - size) / 2);
-        button_small_x2 = (int)(0.5f + sw - size * 1.4f);
 
         // top bar
         top_w = sw + 2;
@@ -90,5 +85,6 @@ public class SizeHelper
 
         System.out.println("board origin=" + board_x0 + "," + board_y0 +
                   " size=" + size + " gap=" + gap);
-    }
+	}
+	*/
 }

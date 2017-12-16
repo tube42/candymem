@@ -19,8 +19,7 @@ implements TweenListener
           STATE_HIDDEN = 1,
           STATE_MATCHED = 2,
           STATE_SHOWN = 3,
-          STATE_ANIM_SHOW = 4,
-          STATE_ANIM_HIDE = 5
+          STATE_ANIM_SHOW = 4
           ;
 
     public TextureRegion []candy;
@@ -34,25 +33,52 @@ implements TweenListener
         this.candy = candy;
     }
 
-
-    // ---------------------------------------------------
-
-    public TweenNode setShow(boolean visible, float pause, float duration)
+    public TweenNode animShow(boolean visible)
     {
-        final float v0 = visible ? 0 : 1;
-        final float v1 = visible ? 1 : 0;
-        final TweenEquation eq1 = visible ? TweenEquation.BACK_OUT : null;
+		final float pause = 0.1f;
+		final float duration = 0.5f;
 
+        final TweenEquation eq1 = visible ? TweenEquation.BACK_OUT : null;
         final float p = pause + RandomService.get(0, 0.1f);
         final float d = duration + RandomService.get(0, 0.1f);
 
-
-        pause(ITEM_A, v0, p)
-              .tail(v1).configure(d, null);
-        return pause(ITEM_S, v0, p)
-              .tail(v1).configure(d * 1.2f, eq1);
+        pause(ITEM_A, visible ? 0 : 1, p)
+              .tail(visible ? 1 : 0).configure(d, null);
+        return pause(ITEM_S, visible ? 0 : 1, p)
+              .tail(visible ? 1 : 0).configure(d * 1.2f, eq1);
     }
 
+	public TweenNode animFlip(boolean show)
+	{
+		pause(BaseItem.ITEM_A, 1f, 0.3f)
+			.tail(0.4f).configure(0.06f, null)
+			.pause(0.2f)
+			.tail(1.0f).configure(0.1f, null)
+			;
+
+		return set(BaseItem.ITEM_S, 1.0f, 1.1f).configure(0.3f, null)
+			.tail(0.2f).configure(0.1f, null)
+			.finish(this, show ? TileSprite.STATE_SHOWN : TileSprite.STATE_HIDDEN)
+			.tail(1.2f).configure(0.20f, null)
+			.tail(1.0f).configure(0.10f, null)
+			;
+	}
+
+	public TweenNode match()
+	{
+		final float r = RandomService.get(0.01f, 0.25f);
+		pause(BaseItem.ITEM_S, 1f, r)
+			.tail(1.1f).configure(0.14f, null)
+			.tail(0.3f).configure(0.3f, null)
+			.finish(this, TileSprite.STATE_MATCHED)
+			.tail(1.2f).configure(0.2f, null)
+			.tail(1f).configure(0.1f, null);
+
+		return pause(BaseItem.ITEM_A, 1f, r + 0.4f)
+			.tail(0.5f).configure(0.04f, null)
+			.tail(1.0f).configure(0.05f, null)
+			;
+	}
 
     // ---------------------------------------------------
 
@@ -67,25 +93,18 @@ implements TweenListener
             sb.setColor( cr, cg, cb, a);
             draw_texture(sb, textures[0]);
             break;
-
-        case STATE_ANIM_HIDE:
         case STATE_SHOWN:
             sb.setColor( 1, 1, 1, a);
             draw_texture(sb, candy[id]);
             break;
-
         case STATE_MATCHED:
             sb.setColor( cr, cg, cb, a);
             draw_texture(sb, textures[1]);
-
             sb.setColor( 1, 1, 1, a);
             draw_texture(sb, candy[id], 0.4f, -0.07f, 0.35f);
             break;
         }
     }
-
-
-
 
     protected void draw_texture(SpriteBatch sb, TextureRegion tr,
               float s2, float addx, float addy)
@@ -100,9 +119,7 @@ implements TweenListener
         sb.draw(tr,
                 x + addx * w * 1 + 0.5f,
                 y + addy * h * 1 + 0.5f,
-                w2, h2,
-                w, h,
-                s, s, r);
+                w2, h2, w, h, s, s, r);
     }
 
     protected void draw_texture(SpriteBatch sb, TextureRegion texture)
@@ -116,11 +133,8 @@ implements TweenListener
 
         sb.draw(texture,
                 x + 0.5f, y + 0.5f,
-                w2, h2,
-                w, h,
-                s, s, r);
+                w2, h2, w, h, s, s, r);
     }
-
 
     // ---------------------------------------------------
     // TweenListener

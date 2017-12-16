@@ -23,22 +23,16 @@ public class AssetHelper
 
         // patches
         np_shadow = AssetService.loadPatch(base + "shadow.9.png", 6, 5, 6, 5);
-        np_botshadow = AssetService.loadPatch(base + "botshadow.9.png", 7, 7, 1, 11);
 
         // Textures
         tex_candy2 = AssetService.load(base + "candy2.png", true);
-
-        tex_menu = AssetService.load(base + "menu.png", true);
-        tex_menu_shadow = AssetService.load(base + "shadow.png", true);
-
+        tex_icons = AssetService.load(base + "icons.png", true);
         tex_candy1 = AssetService.load(base + "candy1.png", true);
         tex_tiles = AssetService.load(base + "tiles.png", true);
 
         // regions
         reg_candy2 = AssetService.divide(tex_candy2, 6, 2);
-
-        reg_menu = AssetService.divide(tex_menu, 4, 2);
-        reg_menu_shadow = AssetService.divide(tex_menu_shadow, 2, 1);
+        reg_icons = AssetService.divide(tex_icons, 4, 2);
         reg_candy1 = AssetService.divide(tex_candy1, 5, 5);
         reg_tiles = AssetService.divide(tex_tiles, 2, 1);
 
@@ -58,7 +52,6 @@ public class AssetHelper
         sound_end = ServiceProvider.loadSound("end");
         talk_on = ServiceProvider.loadSound("talk_on");
         talk_off = ServiceProvider.loadSound("talk_off");
-        talk_play = ServiceProvider.loadSound("talk_play");
         talk_hardness = ServiceProvider.loadSoundArray("talk_hardness");
     }
 }

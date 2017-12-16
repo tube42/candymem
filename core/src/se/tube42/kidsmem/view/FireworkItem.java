@@ -33,17 +33,17 @@ extends ParticleItem
         this.msg = msg;
         this.data0 = data0;
 
-        emit1();
+        emit();
     }
 
-    private void emit1()
+    public void emit()
     {
         final float ya = -20;
         final float xa = RandomService.get(0, UI.sw);
         final float xb = Math.max(0, Math.min(UI.sw,
                   xa + RandomService.get(0, UI.sw / 3)));
         final float yb = UI.sh * 0.3f + RandomService.get(0, UI.sh * 0.7f);
-        final float t = RandomService.get(0.6f, 1.0f);
+        final float t = RandomService.get(0.6f, 1f);
 
         setState(0);
         setPosition(xa, ya);
