@@ -10,7 +10,7 @@ Candy Memory
 
 This is a FOSS memory game for Android.
 
-.. image:: http://tube42.github.io/candymem/img/img00.png
+.. image:: extra/screen.png
 
 Downloads:
 

@@ -11,6 +11,7 @@ import se.tube42.kidsmem.view.*;
 
 import static se.tube42.kidsmem.data.Assets.*;
 
+// AssetHelper contains all code for loading assets at start
 public class AssetHelper
 {
 

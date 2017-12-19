@@ -10,6 +10,7 @@ import se.tube42.lib.item.*;
 import se.tube42.kidsmem.data.*;
 import se.tube42.kidsmem.control.*;
 
+// GameStat is a text used for game statistics that animates when changed
 public class GameStat extends BaseText
 implements TweenListener
 {

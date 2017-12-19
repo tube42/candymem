@@ -1,6 +1,7 @@
 
 package se.tube42.kidsmem.data;
 
+// Settings contains game settings
 public class Settings
 {
     public static boolean sound;

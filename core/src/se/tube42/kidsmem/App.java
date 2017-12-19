@@ -22,9 +22,6 @@ import static se.tube42.kidsmem.data.Constants.*;
 public class App extends BaseApp
 implements ApplicationListener, InputProcessor
 {
-    // additional layser
-    private BackgroundScene scene_bg;
-
     public App()
     {
 
@@ -36,7 +33,6 @@ implements ApplicationListener, InputProcessor
 
         // set size before loading assets
         onResize(UIC.sw, UIC.sh);
-
 
 		World.mgr = mgr;
 		World.bgc = bgc;
@@ -53,8 +49,7 @@ implements ApplicationListener, InputProcessor
 		SceneHelper.reset();
 
         // this must come first:
-        scene_bg = new BackgroundScene();
-        mgr.setBackground(scene_bg);
+        mgr.setBackground(new BackgroundScene());
 
 		// initial resource loading
 		SceneHelper.showMenu();
@@ -71,7 +66,12 @@ implements ApplicationListener, InputProcessor
 
     public void onResize(int sw, int sh)
     {
-        SizeHelper.resize(sw, sh);
+		UI.resize(sw, sh);
+		UI.scale =  (int)( 0.5f + Math.min( sw / CANVAS_W ,sh / CANVAS_H));
+		if(UI.scale < 1)
+			UI.scale = 1;
+		else if(UI.scale > 2)
+			UI.scale = 4;
     }
 
     public void onUpdate(float dt, long dtl)

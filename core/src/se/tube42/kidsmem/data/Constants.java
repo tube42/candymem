@@ -1,6 +1,7 @@
 
 package se.tube42.kidsmem.data;
 
+// Constants contains game constants such as colors
 public class Constants
 {
     public final static String
@@ -23,13 +24,12 @@ public class Constants
         COUNT_H = 6
         ;
 
-
 	public static final int
 		COLOR_BG1 = 0xa4e1af,
-		COLOR_BG3 = 0xd8f3e2,
 		COLOR_BG2 = 0x83c97d,
 		COLOR_FG1 = 0x19857a
-;
+	;
+
 	public static final int
 		ICON_SOUND_ON = 0,
 		ICON_SOUND_OFF = 1,

@@ -3,6 +3,7 @@ package se.tube42.kidsmem.control;
 import se.tube42.lib.service.*;
 import se.tube42.kidsmem.data.*;
 
+// IOHelper contains load/save operations
 public class IOHelper
 {
     public static void loadSettings()

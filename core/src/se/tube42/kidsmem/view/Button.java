@@ -16,6 +16,7 @@ import se.tube42.kidsmem.control.*;
 
 import static se.tube42.kidsmem.data.Constants.*;
 
+// Button represents a button that can have multiple icons
 public class Button extends SpriteItem
 {
     private int []indices;

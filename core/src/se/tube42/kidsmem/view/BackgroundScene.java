@@ -17,6 +17,7 @@ import se.tube42.kidsmem.control.*;
 
 import static se.tube42.kidsmem.data.Constants.*;
 
+// BackgroundScene generates the background animations in all scenes
 public class BackgroundScene
 extends Scene
 implements TweenListener

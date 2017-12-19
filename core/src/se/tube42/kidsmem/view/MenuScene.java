@@ -17,6 +17,7 @@ import static se.tube42.kidsmem.data.Assets.*;
 import static se.tube42.kidsmem.data.UI.*;
 import static se.tube42.kidsmem.data.Constants.*;
 
+// MenuScene is the entry scene
 public class MenuScene extends Scene
 {
     public static final int
@@ -59,16 +60,12 @@ public class MenuScene extends Scene
 			ICON_MODE_EASY, ICON_MODE_NORMAL, ICON_MODE_HARD);
 
 		buttons = new Button[]{button_sound, button_full, button_mode, button_play};
-		for(Button b : buttons) {
-			l1.add(b);
-			b.setColor( COLOR_FG1);
-		}
+		l1.add(buttons);
 
         l1.add( msg = new BaseText(font1) );
         msg.setColor(COLOR_FG1);
         msg.setText("");
         msg.setAlignment(-0.5f, + 0.5f);
-
 		getSettings();
 	}
 
@@ -82,12 +79,12 @@ public class MenuScene extends Scene
 				World.bgc.set(i, c / 256f);
 			}
 			TweenHelper.animate(buttons, BaseItem.ITEM_A, 0, 1, 1.0f, 1.5f,
-				0.3f, 0.8f, TweenEquation.CUBE_IN);
-			bar.set(BaseItem.ITEM_A, 0, 0.5f).configure(2f, TweenEquation.LINEAR);
+				0.3f, 0.8f, TweenEquation.LINEAR);
+			bar.set(BaseItem.ITEM_A, 0, 1.0f).configure(2f, TweenEquation.LINEAR);
 		} else {
 			TweenHelper.animate(buttons, BaseItem.ITEM_A, 0, 1, 0.1f, 0.25f,
-			0.3f, 0.8f, TweenEquation.CUBE_IN);
-			bar.set(BaseItem.ITEM_A, 0, 0.5f).configure(0.5f, TweenEquation.LINEAR);
+				0.1f, 0.3f, TweenEquation.LINEAR);
+			bar.set(BaseItem.ITEM_A, 0, 1.0f).configure(0.5f, TweenEquation.LINEAR);
 		}
 
 		setMessage(null);
@@ -96,10 +93,8 @@ public class MenuScene extends Scene
 	public void onHide()
 	{
 		IOHelper.saveSettings();
-
-		TweenHelper.animate(buttons, BaseItem.ITEM_A, 1, 0, 0.2f, 0.3f, TweenEquation.CUBE_IN);
-		bar.set(BaseItem.ITEM_A, 1,0).configure(0.25f, TweenEquation.LINEAR);
-
+		TweenHelper.animate(buttons, BaseItem.ITEM_A, 1, 0, 0.1f, 0.3f, TweenEquation.CUBE_IN);
+		bar.set(BaseItem.ITEM_A, 1, 0).configure(0.25f, TweenEquation.LINEAR);
 	}
 
 	private void setMessage(String str)
@@ -142,8 +137,7 @@ public class MenuScene extends Scene
     {
     	super.resize(sw, sh);
 
-
-		final int button_big = Math.min( sw / 4, sh / 6) & ~15;
+		final int button_big = Math.min( sw / 3, sh / 6) & ~15;
 		final int button_small = button_big / 2;
 
 		y0 = sh / 2;
@@ -168,7 +162,7 @@ public class MenuScene extends Scene
         button_mode.setPosition(0, x1 - button_small / 2, yc);
         button_full.setPosition(0, x2 - button_small / 2, yc);
 
-		msg.setPosition(0, sw / 2, button_mode.getY() - button_small);
+		msg.setPosition(0, sw / 2, yc - button_small);
 	}
 
 	public void onUpdate(float dt)
@@ -176,7 +170,6 @@ public class MenuScene extends Scene
 		super.onUpdate(dt);
 
 		timeback += dt;
-
         timeplay += dt;
         if(timeplay > 0) {
 			timeplay = -RandomService.get(3, 8);

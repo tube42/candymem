@@ -4,13 +4,12 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 
-
 import se.tube42.lib.scene.*;
 import se.tube42.lib.tweeny.TweenEquation;
 import se.tube42.kidsmem.data.*;
 import se.tube42.kidsmem.view.*;
 
-
+// SceneHelper contains code for scene switching with animation
 public class SceneHelper
 {
 	public static void reset()

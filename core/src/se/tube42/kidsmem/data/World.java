@@ -12,7 +12,7 @@ import se.tube42.lib.item.*;
 import se.tube42.kidsmem.*;
 import se.tube42.kidsmem.view.*;
 
-
+// World static data
 public class World
 {
     // Items

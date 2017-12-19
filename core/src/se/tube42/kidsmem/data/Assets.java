@@ -7,14 +7,12 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.audio.*;
 
 
+// Assets contains all game assets such as textures
 public final class Assets
 {
-
-
     // -------------------------------------------------
     // ninepatch
     public static NinePatch np_shadow;
-
 
     // -------------------------------------------------
     // fonts
@@ -35,7 +33,6 @@ public final class Assets
     public static TextureRegion [] reg_candy1, reg_candy2, reg_tiles;
     public static TextureRegion [] reg_rect;
     public static TextureRegion [] reg_icons;
-
 
     // -------------------------------------------------
     // Sounds

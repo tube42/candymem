@@ -11,6 +11,8 @@ import se.tube42.lib.service.*;
 import se.tube42.kidsmem.data.*;
 import se.tube42.kidsmem.control.*;
 
+// TileSprite is a single candy that is either hidden or shown or animatng
+// between the two
 public class TileSprite
 extends SpriteItem
 implements TweenListener

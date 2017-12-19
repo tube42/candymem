@@ -2,6 +2,7 @@ package se.tube42.kidsmem.data;
 
 import static se.tube42.kidsmem.data.Constants.*;
 
+// Board contains game board state
 public class Board
 {
     // game state

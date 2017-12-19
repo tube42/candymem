@@ -21,8 +21,8 @@ android {
         applicationId "se.tube42.kidsmem.android"
         minSdkVersion 11
         targetSdkVersion 26
-        versionCode 15
-        versionName "1.5"
+        versionCode 16
+        versionName "1.6"
     }
     buildTypes {
         release {

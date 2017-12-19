@@ -12,6 +12,7 @@ import se.tube42.lib.service.*;
 import se.tube42.kidsmem.data.*;
 import se.tube42.kidsmem.control.*;
 
+// FireworkItem is the firework particle
 public class FireworkItem
 extends ParticleItem
 {
@@ -21,7 +22,6 @@ extends ParticleItem
     public FireworkItem()
     {
     }
-
 
     public void emit(MessageListener listener, int msg, int data0)
     {

@@ -15,6 +15,7 @@ import se.tube42.lib.service.*;
 
 import se.tube42.kidsmem.data.*;
 
+// ServiceProvider contains any logic that dont fit in any of the helpers
 public class ServiceProvider
 {
 

@@ -20,6 +20,7 @@ import se.tube42.kidsmem.control.*;
 import static se.tube42.kidsmem.data.Constants.*;
 import static se.tube42.kidsmem.data.Assets.*;
 
+// GameScene contains game view and sme of the game logic
 public class GameScene extends Scene
 implements MessageListener, TweenListener
 {
@@ -190,16 +191,16 @@ implements MessageListener, TweenListener
 	private void updateText()
 	{
 		if(board.cnt_total == 0) {
-			text0.clear();
 			text1.clear();
 		} else {
-			final int best = Statistics.best[Settings.size];
-			if(best > 0)
-				text0.setAnimatedText("" + board.cnt_total + " (" + best + ")");
-			else
-				text0.setAnimatedText("" + board.cnt_total);
 			text1.setAnimatedText("" + (board.cnt_match * 100 / board.cnt_total) + "%");
 		}
+
+		final int best = Statistics.best[Settings.size];
+		if(best > 0)
+			text0.setAnimatedText("" + board.cnt_total + " (" + best + ")");
+		else
+			text0.setAnimatedText("" + board.cnt_total);
 	}
 
 	private void dropParticles(TileSprite t)
