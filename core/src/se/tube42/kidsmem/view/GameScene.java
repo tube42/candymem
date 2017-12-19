@@ -24,21 +24,19 @@ public class GameScene extends Scene
 implements MessageListener, TweenListener
 {
 	public static final int
-		MSG_BOARD_SHOW = 0,
-		MSG_BOARD_CHECK = 1,
-		MSG_FIREWORK = 2,
-		MSG_END= 3
+		MSG_BOARD_CHECK = 0,
+		MSG_FIREWORK = 1,
+		MSG_END = 2
 		;
 
 	public static final int
 		  COUNT_FIREWORKS = 12,
-		  COUNT_PARTICLES = 10
+		  COUNT_PARTICLES = 12
           ;
 
 	private int cntf; // firework turn variable
 
 	private Board board;
-    private SceneManager mgr;
     private SpriteItem top;
 	private Layer tile_layer;
 	private ParticleLayer particle_layer;
@@ -47,12 +45,11 @@ implements MessageListener, TweenListener
 	private TileSprite []tiles;
 	private FireworkItem []fireworks;
 
-    public GameScene(SceneManager mgr)
+    public GameScene()
     {
     	super("game");
 
 		this.board = new Board();
-		this.mgr = mgr;
 		this.cntf = 0;
 
 		tiles = new TileSprite[COUNT_W * COUNT_H];
@@ -77,10 +74,10 @@ implements MessageListener, TweenListener
         getLayer(1).add(text0);
 		getLayer(1).add(text1);
 
-		tile_layer = getLayer(2);// tiles will go here
-
 		particle_layer = new ParticleLayer();
 		addLayer(particle_layer);
+
+		tile_layer = getLayer(3);// tiles will go here
     }
 
     public void onShow()
@@ -90,11 +87,11 @@ implements MessageListener, TweenListener
 
 		tile_layer.clear();
 		for(int i = 0; i < board.count; i++) {
-			tiles[i].setAlpha(0);
 			tile_layer.add(tiles[i]);
+			tiles[i].setAlpha(0);
+			tiles[i].animShow(true);
 		}
-		top.set(BaseItem.ITEM_A, 0,1).configure(2f, TweenEquation.LINEAR);
-		JobService.add( this, 200, MSG_BOARD_SHOW); // board-in
+		top.set(BaseItem.ITEM_A, 0,1).configure(0.75f, TweenEquation.LINEAR);
 
 		updateText();
 	}
@@ -150,11 +147,6 @@ implements MessageListener, TweenListener
         // System.out.println("MSG = " + msg + " data0=" + data0 + " data1=" + data1);
 
         switch(msg) {
-		case MSG_BOARD_SHOW:
-			for(int i = 0; i < board.count; i++)
-				tiles[i].animShow(true);
-            break;
-
 		case MSG_BOARD_CHECK:
 			if(GameHelper.check(board)) {
 				if(board.state == Board.STATE_WIN)
@@ -170,13 +162,13 @@ implements MessageListener, TweenListener
 		case MSG_FIREWORK:
 			fireworks(data0);
 			if(data0 <= 0)
-				JobService.add( this, 1500 , MSG_END);
+				JobService.add( this, 2500 , MSG_END);
 			break;
 
 		case MSG_END:
 			for(int i = 0; i < fireworks.length; i++)
 				fireworks[i].stop();
-			mgr.setScene(World.scene_menu, 500);
+			SceneHelper.showMenu();
 			break;
         }
 	}
@@ -214,12 +206,18 @@ implements MessageListener, TweenListener
 	{
 		for(int i = 0; i < COUNT_PARTICLES; i++) {
 			Particle p = particle_layer.create(0.3f + i * 0.05f, 0.7f + i * 0.2f);
-			p.attach(t);
+			// p.attach(t);
 			p.configure(reg_candy1, t.id, 0x20FFFFFF);
+
+			p.setSize((int)(t.getW() / 2), (int)(t.getH() / 2));
+			p.setPosition(
+				t.getX() + t.getW() / 3,
+				t.getY() + t.getH() / 3);
+
 			p.setVelocity(
-				RandomService.get(-50,+50),
 				RandomService.get(-200, +200),
-				RandomService.get(-90,+90));
+				RandomService.get(-200, +400),
+				RandomService.get(-720,+720));
 			p.setAcceleration(
 				RandomService.get(-50,+50),
 				RandomService.get(-500, 0),
@@ -265,8 +263,8 @@ implements MessageListener, TweenListener
 
 	private void goBack()
 	{
-        mgr.setScene(World.scene_menu, 500);
-    }
+        SceneHelper.showMenu();
+	}
 
 	private int getTileAt(float x, float y)
     {

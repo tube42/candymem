@@ -3,13 +3,9 @@ package se.tube42.kidsmem.view;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.graphics.g3d.particles.ParticleShader.Setters;
-import com.badlogic.gdx.audio.*;
 import com.badlogic.gdx.Input.*;
 
 import se.tube42.lib.tweeny.*;
-import se.tube42.lib.ks.*;
 import se.tube42.lib.scene.*;
 import se.tube42.lib.item.*;
 import se.tube42.lib.service.*;
@@ -32,11 +28,10 @@ public class MenuScene extends Scene
 	private Button []buttons;
 	private SpriteItem bar;
 
-	private SceneManager mgr;
 	private int y0, y1, y2, x0, x1, x2;
 	private float timeplay;
 	private volatile float timeback;
-
+	private boolean first;
 
     private final static int
 		ID_SOUND = 0,
@@ -46,10 +41,11 @@ public class MenuScene extends Scene
 		;
     // -----------------------------------------
 
-    public MenuScene(SceneManager mgr)
+    public MenuScene()
     {
     	super("menu");
-        this.mgr = mgr;
+
+		first = true;
 
 		final Layer l0 = getLayer(0);
 		l0.add( bar = new SpriteItem(reg_rect));
@@ -78,15 +74,22 @@ public class MenuScene extends Scene
 
 	public void onShow()
 	{
-		for(int i = 0; i < 3; i++) {
-			final int c = 0xFF & (COLOR_BG1 >> (i * 8));
-			World.bgc.set(i, c / 256f);
+		if(first) {
+			// more animations first time
+			first = false;
+			for(int i = 0; i < 3; i++) {
+				final int c = 0xFF & (COLOR_BG1 >> (i * 8));
+				World.bgc.set(i, c / 256f);
+			}
+			TweenHelper.animate(buttons, BaseItem.ITEM_A, 0, 1, 1.0f, 1.5f,
+				0.3f, 0.8f, TweenEquation.CUBE_IN);
+			bar.set(BaseItem.ITEM_A, 0, 0.5f).configure(2f, TweenEquation.LINEAR);
+		} else {
+			TweenHelper.animate(buttons, BaseItem.ITEM_A, 0, 1, 0.1f, 0.25f,
+			0.3f, 0.8f, TweenEquation.CUBE_IN);
+			bar.set(BaseItem.ITEM_A, 0, 0.5f).configure(0.5f, TweenEquation.LINEAR);
 		}
 
-		final BaseItem []all = {bar, button_sound, button_full, button_mode, button_play};
-		TweenHelper.animate(buttons, BaseItem.ITEM_A, 0, 1, 1.0f, 1.5f,
-			0.3f, 0.8f, TweenEquation.CUBE_IN);
-		bar.set(BaseItem.ITEM_A, 0,1).configure(2f, TweenEquation.LINEAR);
 		setMessage(null);
 	}
 
@@ -160,12 +163,12 @@ public class MenuScene extends Scene
         button_full.setSize(button_small, button_small);
 
 		final int yc = ( y1 + y2 - button_small) / 2;
-		button_play.setPosition(x1 - button_big / 2, y0);
-        button_sound.setPosition(x0 - button_small / 2, yc);
-        button_mode.setPosition(x1 - button_small / 2, yc);
-        button_full.setPosition(x2 - button_small / 2, yc);
+		button_play.setPosition(0, x1 - button_big / 2, y0);
+        button_sound.setPosition(0, x0 - button_small / 2, yc);
+        button_mode.setPosition(0, x1 - button_small / 2, yc);
+        button_full.setPosition(0, x2 - button_small / 2, yc);
 
-		msg.setPosition(sw / 2, button_mode.getY() - button_small);
+		msg.setPosition(0, sw / 2, button_mode.getY() - button_small);
 	}
 
 	public void onUpdate(float dt)
@@ -229,19 +232,7 @@ public class MenuScene extends Scene
 				World.sys.setFullscreen(Settings.fullscreen);
 			setMessage(Settings.fullscreen ? "full screen" : "");
 		} else if(b == button_play) {
-			if(World.scene_game == null)
-				World.scene_game = new GameScene(mgr);
-			mgr.setScene(World.scene_game, 750);
-			/*
-			// write configuration to World
-			// World.sound_enabled is already set
-			World.board_w = 2 + Settings.size;
-			World.board_h = Settings.size == 0 ? 3 : 2 + Settings.size * 2;
-			SizeHelper.resizeBoard(UI.sw, UI.sh); // must resize since board_w/h may have changed
-
-			// anim buttons out (and move to game scene)
-			anim_menus_out();
-			*/
+			SceneHelper.showGame();
 		}
 
 		return true;

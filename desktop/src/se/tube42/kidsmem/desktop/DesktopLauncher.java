@@ -36,6 +36,6 @@ public class DesktopLauncher
     {
         World.sys = new DesktopHandler();
         App app = new App();
-        new LwjglApplication( app, "KidsMemory", 320, 480);
+        new LwjglApplication( app, "Candy Memory", 320, 480);
     }
 }

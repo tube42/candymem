@@ -37,23 +37,37 @@ implements ApplicationListener, InputProcessor
         // set size before loading assets
         onResize(UIC.sw, UIC.sh);
 
-        World.mgr = mgr;
-        World.bgc = bgc;
+
+		World.mgr = mgr;
+		World.bgc = bgc;
+		World.zoom = new Item(1);
+		World.zoom.setImmediate(0, 1);
+
         bgc.setImmediate(0, 0);
         bgc.setImmediate(1, 0);
         bgc.setImmediate(2, 0);
 
         IOHelper.loadSettings();
         IOHelper.loadStatistics();
-        AssetHelper.load();
+		AssetHelper.load();
+		SceneHelper.reset();
 
         // this must come first:
         scene_bg = new BackgroundScene();
         mgr.setBackground(scene_bg);
 
 		// initial resource loading
-		mgr.setScene( World.scene_menu = new MenuScene(mgr) );
+		SceneHelper.showMenu();
     }
+
+	// use onPreDraw for the scene switch animation
+	public void onPreDraw(SpriteBatch sb)
+    {
+		super.onPreDraw(sb);
+		camera.zoom = World.zoom.get(0);
+		camera.update();
+	}
+
 
     public void onResize(int sw, int sh)
     {

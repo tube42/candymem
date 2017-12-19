@@ -28,19 +28,22 @@ implements TweenListener
         setAlpha(0);
     }
 
-
     public void setAnimatedText(String txt)
     {
-        next_text = txt;
+		if(txt.equals(getText()) && next_text == null)
+			return;
 
+        next_text = txt;
         set(ITEM_A, 0).configure(0.5f, null).finish(this, 0)
-              .tail(1).configure(0.5f, null);
+			  .tail(1).configure(0.5f, null);
+
     }
 
 
     public void onFinish(Item item, int index, int data)
     {
-        setText(next_text);
+		setText(next_text);
+		next_text = null;
     }
 
 }

@@ -16,23 +16,14 @@ import se.tube42.kidsmem.view.*;
 public class World
 {
     // Items
-    public static Item bgc;
+	public static Item bgc;
+	public static Item zoom;
 
-    // sprites etc
-    public static TileSprite [] tiles;
-
-    // screen and board
+	// screen and board
 	public static SceneManager mgr;
 	public static MenuScene scene_menu;
 	public static GameScene scene_game;
 
-	/*
-
-    public static TileSprite sel1, sel2;
-    public static TileSprite [] board;
-    public static FireworkItem [] fireworks;
-*/
     // misc:
     public static SystemHandler sys = null;
-
 }
