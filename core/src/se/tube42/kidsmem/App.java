@@ -39,9 +39,12 @@ implements ApplicationListener, InputProcessor
 		World.zoom = new Item(1);
 		World.zoom.setImmediate(0, 1);
 
-        bgc.setImmediate(0, 0);
-        bgc.setImmediate(1, 0);
-        bgc.setImmediate(2, 0);
+
+		for(int i = 0; i < 3; i++) {
+			final int c = 0xFF & (COLOR_BG1 >> (i * 8));
+			bgc.setImmediate(i, 1f);
+			World.bgc.pause(i, 0.3f).tail(c / 256f).configure(5.0f, TweenEquation.LINEAR);
+		}
 
         IOHelper.loadSettings();
         IOHelper.loadStatistics();

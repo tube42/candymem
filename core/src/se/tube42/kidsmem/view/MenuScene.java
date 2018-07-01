@@ -74,13 +74,9 @@ public class MenuScene extends Scene
 		if(first) {
 			// more animations first time
 			first = false;
-			for(int i = 0; i < 3; i++) {
-				final int c = 0xFF & (COLOR_BG1 >> (i * 8));
-				World.bgc.set(i, c / 256f);
-			}
 			TweenHelper.animate(buttons, BaseItem.ITEM_A, 0, 1, 1.0f, 1.5f,
 				0.3f, 0.8f, TweenEquation.LINEAR);
-			bar.set(BaseItem.ITEM_A, 0, 1.0f).configure(2f, TweenEquation.LINEAR);
+			bar.set(BaseItem.ITEM_A, 0, 1.0f).configure(5f, TweenEquation.LINEAR);
 		} else {
 			TweenHelper.animate(buttons, BaseItem.ITEM_A, 0, 1, 0.1f, 0.25f,
 				0.1f, 0.3f, TweenEquation.LINEAR);
