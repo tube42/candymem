@@ -66,9 +66,6 @@ implements SystemHandler
 
     public void setFullscreen(final boolean new_full)
     {
-        if(new_full == is_full)
-            return;
-
         is_full = new_full;
         try_run(update_fullscreen);
     }

@@ -48,6 +48,9 @@ implements ApplicationListener, InputProcessor
 		AssetHelper.load();
 		SceneHelper.reset();
 
+		// full screen?
+		updateFullscreen();
+
         // this must come first:
         mgr.setBackground(new BackgroundScene());
 
@@ -78,4 +81,21 @@ implements ApplicationListener, InputProcessor
     {
         ServiceProvider.service(dtl);
     }
+
+	public void resume()
+	{
+		super.resume();
+
+		// this seems to be required since we loose full-screen sometimes
+		updateFullscreen();
+	}
+
+	private void updateFullscreen()
+	{
+		final SystemHandler sys = World.sys;
+		if(sys != null) {
+			sys.setFullscreen(Settings.fullscreen);
+		}
+	}
+
 }
