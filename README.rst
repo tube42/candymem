@@ -10,12 +10,15 @@ Candy Memory
 
 This is a FOSS memory game for Android.
 
+.. raw:: html
+    
+    <a href="https://f-droid.org/app/se.tube42.kidsmem.android"><img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="100"></a>
+
+
+Screenshot
+----------
+
 .. image:: extra/screen.png
-
-Downloads:
-
-- From `Fdroid <https://f-droid.org/repository/browse/?fdid=se.tube42.kidsmem.android>`_
-
 
 
 Acknowledgements
